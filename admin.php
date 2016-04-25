@@ -44,6 +44,7 @@ class admin extends ecjia_admin {
 		
 		$type = isset($_GET['type']) && in_array($_GET['type'], array('on_sale', 'coming', 'finished')) ? trim($_GET['type']) : '';
 		$promotion_list = $this->promotion_list($type);
+		
 		$time = RC_Time::gmtime();
 		if ($type == 'on_sale') {
 			$where['promote_start_date'] = array('elt' => $time);
@@ -58,7 +59,7 @@ class admin extends ecjia_admin {
 		
 		$field = 'count(*) as count, SUM(IF(promote_start_date <'.$time.' and promote_end_date > '.$time.', 1, 0)) as on_sale,'.
 				'SUM(IF(promote_start_date >'.$time.', 1, 0)) as coming, SUM(IF(promote_end_date <'.$time.', 1, 0)) as finished';
-		$type_count = $this->db_goods->field($field)->where(array('is_promote' => 1))->find();
+		$type_count = $this->db_goods->field($field)->where(array('is_promote' => 1, 'is_delete' => array('neq' => 1)))->find();
 		
 		
 		$this->assign('ur_here', '促销商品列表');
@@ -68,6 +69,7 @@ class admin extends ecjia_admin {
 		$this->assign('promotion_list', $promotion_list['promotion_list']);
 		$this->assign('page', $promotion_list['page']);
 		$this->assign('type', $type);
+		$this->assign('time',  RC_Time::local_date(ecjia::config('date_format'), $time));
 		$this->assign('type_count', $type_count);
 		
 		$this->display('promotion_list.dwt');
@@ -210,6 +212,7 @@ class admin extends ecjia_admin {
 		/* 查询条件 */
 		$filter['keywords']   = empty($_POST['keywords']) ? '' : trim($_POST['keywords']);
 		$where = array('is_promote' => 1);
+		$where['is_delete'] = array('neq' => 1);
 		
 		if (!empty($filter['keywords'])) {
 			$where['goods_name'] = array('like' => '"%'.$filter['keywords'].'%"');
@@ -234,6 +237,7 @@ class admin extends ecjia_admin {
 		
 		$field = 'goods_id, goods_name, promote_price, promote_start_date, promote_end_date, goods_thumb';
 		/* 获活动数据 */
+
 		$result = $this->db_goods->field($field)->where($where)->order(array('promote_start_date' => 'desc'))->limit($page->limit())->select();
 		
 		foreach ($result AS $key => $val) {

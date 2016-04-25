@@ -55,7 +55,7 @@
 							</a>
 						</td>
 						<td class="hide-edit-area">
-							<span>{$item.goods_name}</span><br>
+							<span class="{if ($time >= $item.start_time) && ($time <= $item.end_time)}ecjiafc-red{/if}">{$item.goods_name}</span><br>
 							<div class="edit-list">
 								<a class="data-pjax" href="{RC_Uri::url('promotion/admin/edit',"id={$item.goods_id}")}" title="{t}编辑{/t}">{t}编辑{/t}</a>&nbsp;|&nbsp;
 								<a data-toggle="ajaxremove" class="ajaxremove ecjiafc-red" data-msg="{t}您确定要删除该促销活动吗？{/t}" href="{RC_Uri::url('promotion/admin/remove',"id={$item.goods_id}")}" title="{t}移除{/t}">{t}删除{/t}</a>
