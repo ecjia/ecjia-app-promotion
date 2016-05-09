@@ -2,10 +2,22 @@
 ;(function(app, $) {
 	app.promotion_list = {
 		init : function() {
-			
+			app.promotion_list.search();
 		},
+		search : function() {
+			$("form[name='searchForm']").on('submit', function(e) {
+				e.preventDefault();
+				var keywords = $("input[name='keywords']").val();
+				var url = $("form[name='searchForm']").attr('action'); 
 
+				if (keywords) {
+					url += '&keywords=' + keywords;
+				}
+				ecjia.pjax(url);
+			});
+		}
 	}
+	
 	app.promotion_info = {
 		init : function() {
 			/* 加载日期控件 */
@@ -51,7 +63,7 @@
 						price : {required : true, min : 0.01}
 					},
 					messages : {
-						goods_id : { min : '请在添加活动商品区域选择活动商品！' },
+						goods_id : { min : '请先选择活动商品'},
 						start_time : {
 							required : "请选择活动开始时间",
 						},

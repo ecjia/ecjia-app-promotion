@@ -22,50 +22,54 @@
 		<form method="post" class="form-horizontal" action="{$form_action}" name="theForm" enctype="multipart/form-data">
 			<fieldset>
 				<div class="control-group formSep">
-					<label class="control-label">{t}商品关键字：{/t}</label>
+					<label class="control-label">{lang key='promotion::promotion.label_goods_keywords'}</label>
 					<div class="controls">
 						<input type="text" name="keywords" />
-						<input type="button" value="{t}搜索{/t}" class="btn searchGoods" data-url='{url path="promotion/admin/search_goods"}'>
+						<input type="button" value="{lang key='promotion::promotion.search'}" class="btn searchGoods" data-url='{url path="promotion/admin/search_goods"}'>
 					</div>
 				</div>
 				<div class="control-group formSep">
-					<label class="control-label">{t}选择活动商品：{/t}</label>
+					<label class="control-label">{lang key='promotion::promotion.lable_goods'}</label>
 					<div class="controls">
 						<select name="goods_id" class='goods_list'>
 							<!-- {if !$promotion_info.goods_name} -->
-								<option value='-1'>{t}请选择...{/t}</option>
+								<option value='-1'>{lang key='promotion::promotion.pls_select'}</option>
 							<!-- {else} -->
 								<option value="{$promotion_info.goods_id}">{$promotion_info.goods_name}</option>
 							<!-- {/if} -->
 						</select>
-						<span class="help-block">{t}需要先搜索商品，生成商品列表，然后再选择{/t}</span>
+						<span class="help-block">{lang key='promotion::promotion.select_goods_notice'}</span>
 					</div>
 				</div>
 				<div class="control-group formSep">
-					<label class="control-label">{t}活动开始时间：{/t}</label>
+					<label class="control-label">{lang key='promotion::promotion.label_start_time'}</label>
 					<div class="controls">
-						<input name="start_time" class="date" type="text" placeholder="{t}请选择活动开始时间{/t}" value="{$promotion_info.promote_start_date}"/>
-						<span class="input-must">{$lang.require_field}</span>
+						<input name="start_time" class="date" type="text" placeholder="{lang key='promotion::promotion.select_start_time'}" value="{$promotion_info.promote_start_date}"/>
+						<span class="input-must">{lang key='system::system.require_field'}</span>
 					</div>
 				</div>
 				<div class="control-group formSep">
-					<label class="control-label">{t}活动结束时间：{/t}</label>
+					<label class="control-label">{lang key='promotion::promotion.label_end_time'}</label>
 					<div class="controls">
-						<input name="end_time" class="date" type="text" placeholder="{t}请选择活动开始时间{/t}" value="{$promotion_info.promote_end_date}"/>
-						<span class="input-must">{$lang.require_field}</span>
+						<input name="end_time" class="date" type="text" placeholder="{lang key='promotion::promotion.select_end_time'}" value="{$promotion_info.promote_end_date}"/>
+						<span class="input-must">{lang key='system::system.require_field'}</span>
 					</div>
 				</div>
 				<div class="control-group formSep">
-					<label class="control-label">{t}活动价格：{/t}</label>
+					<label class="control-label">{lang key='promotion::promotion.label_price'}</label>
 					<div class="controls">
 						<input name="price" type="text" value="{$promotion_info.promote_price}"/>
-						<span class="input-must">{$lang.require_field}</span>
+						<span class="input-must">{lang key='system::system.require_field'}</span>
 					</div>
 				</div>
 				<div class="control-group">
 					<div class="controls">
-						<input type="submit" value="{t}确定{/t}" class="btn btn-gebo" />
-						<input type="hidden" name='act_id' value="{$mobilebuy.act_id}">
+						<!-- {if $promotion_info.goods_id} -->
+							<input type="submit" value="{lang key='promotion::promotion.update'}" class="btn btn-gebo" />
+							<input type="hidden" name='old_goods_id' value="{$promotion_info.goods_id}">
+						<!-- {else} -->
+							<input type="submit" value="{lang key='system::system.button_submit'}" class="btn btn-gebo" />
+						<!-- {/if} -->
 					</div>
 				</div>
 			</fieldset>
