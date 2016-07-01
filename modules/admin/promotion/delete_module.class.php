@@ -23,6 +23,11 @@ class delete_module implements ecjia_interface {
 		}
 		
 		$promotion_info = RC_Model::Model('goods/goods_model')->promote_goods_info($id);
+		/* 多商户处理*/
+		if (isset($_SESSION['seller_id']) && $_SESSION['seller_id'] > 0 && $promotion_info['seller_id'] != $_SESSION['seller_id']) {
+			EM_Api::outPut(8);
+		}
+		
 		if (empty($promotion_info)) {
 			EM_Api::outPut(13);
 		}

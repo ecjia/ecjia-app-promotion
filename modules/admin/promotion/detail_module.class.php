@@ -27,6 +27,11 @@ class detail_module implements ecjia_interface {
 	
 		$result = RC_Model::Model('goods/goods_model')->promote_goods_info($id);
 		
+		/* 多商户处理*/
+		if (isset($_SESSION['seller_id']) && $_SESSION['seller_id'] > 0 && $result['seller_id'] != $_SESSION['seller_id']) {
+			EM_Api::outPut(8);
+		}
+		
 		if (!empty($result)) {
 			$privilege = 3;
 			EM_Api::outPut($result, null, $privilege);

@@ -23,6 +23,12 @@ class manage_module implements ecjia_interface {
 			EM_Api::outPut(101);
 		}
 		
+		$promotion_info = RC_Model::Model('goods/goods_model')->promote_goods_info($goods_id);
+		/* 多商户处理*/
+		if (isset($_SESSION['seller_id']) && $_SESSION['seller_id'] > 0 && $promotion_info['seller_id'] != $_SESSION['seller_id']) {
+			EM_Api::outPut(8);
+		}
+		
 		$promotion = array(
 			'goods_id'				=> $goods_id,
 			'is_promote'    		=> '1',
@@ -38,11 +44,9 @@ class manage_module implements ecjia_interface {
 		
 		RC_Model::Model('goods/goods_model')->promotion_manage($promotion);
 
-		$db =  RC_Model::Model('goods/goods_model');
-		$goods_name = $db->where(array('goods_id' => $goods_id))->get_field('goods_name');
 		RC_Loader::load_app_func('global', 'promotion');
 		assign_adminlog_content();
-		ecjia_admin::admin_log($goods_name, 'edit', 'promotion');
+		ecjia_admin::admin_log($promotion_info['goods_name'], 'edit', 'promotion');
 		return array();
 	}
 }

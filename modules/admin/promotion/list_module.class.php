@@ -29,7 +29,7 @@ class list_module implements ecjia_interface {
 			'size'	 	=> !empty($size) ? intval($size) : 15,
 			'page'	 	=> !empty($page) ? intval($page) : 1,
 		);
-		$result = RC_Model::Model('goods/goods_model')->promotion_list($filter);
+		$result = RC_Model::Model('goods/goods_viewmodel')->promotion_list($filter);
 		$privilege = 3;
 		$data = array();
 		
