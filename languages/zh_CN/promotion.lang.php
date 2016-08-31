@@ -27,6 +27,7 @@ return array(
 	'select_start_time'		=> '请选择活动开始时间',
 	'select_end_time'		=> '请选择活动结束时间',
 	'label_price'			=> '活动价格：',
+	'start_lt_end'			=> '促销开始时间不能大于或等于结束时间',
 		
 	'update'	=> '更新',
 	'search' 	=> '搜索',
@@ -38,10 +39,33 @@ return array(
 	'goods_keywords'	=> '请输入商品名称关键字',
 	'thumbnail'			=> '缩略图',
 	'goods_name'		=> '商品名称',
-	'start_time'		=> '活动开始时间',
-	'end_time'			=> '活动结束时间',
+	'start_time'		=> '开始时间',
+	'end_time'			=> '结束时间',
 	'promotion_price'	=> '活动价格',
 	'drop_confirm'		=> '您确定要删除该促销活动吗？',
+	
+	'promotion_manage'		=> '促销管理',
+	'promotion_goods_manage'=> '促销商品管理',
+	'promotion_delete'		=> '删除促销商品',
+	'invalid_parameter'		=> '参数无效',
+	'promotion_goods_info'	=> '促销商品信息',
+	'label_goods_name'		=> '商品名称：',
+	'search_goods_notice'	=> '请先点击下面搜索按钮，选择商品',
+	'enter_goods_name'		=> '请输入商品名称关键字',
+	'search_goods'			=> '搜索商品',
+	'filter_goods_name'		=> '筛选搜索到的商品名称',
+	'click_add_goods'		=> '点击商品名称选择商品',
+	'search_none_info'		=> '没有搜索到任何信息',
+	
+	'js_lang' => array(
+		'select_goods_empty' 	=> '未搜索到商品信息',
+		'goods_id_min'			=> '请选择活动商品',
+		'start_time_required'	=> '请选择开始时间',
+		'end_time_required'		=> '请选择结束时间',
+		'price_required'		=> '请填写活动价格',
+		'price_min'				=> '活动价格最低为1分钱',	
+		'search_none_info'		=> '没有搜索到任何信息',
+	),
 );
 
 // end
