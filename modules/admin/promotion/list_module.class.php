@@ -18,8 +18,8 @@ class list_module extends api_admin implements api_interface {
 			EM_Api::outPut(array(), null, $privilege);
 		}
 		
-		$status 	= _POST('status', '');
-		$keywords   = _POST('keywords', '');
+		$status 	= $this->requestData('status', '');
+		$keywords   = $this->requestData('keywords', '');
 		$size = EM_Api::$pagination['count'];
 		$page = EM_Api::$pagination['page'];
 		

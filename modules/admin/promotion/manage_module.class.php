@@ -18,7 +18,7 @@ class manage_module extends api_admin implements api_interface {
 			EM_Api::outPut(array(), null, $privilege);
 		}
 		
-		$goods_id = _POST('goods_id', 0);
+		$goods_id = $this->requestData('goods_id', 0);
 		if ($goods_id <= 0) {
 			EM_Api::outPut(101);
 		}
@@ -32,9 +32,9 @@ class manage_module extends api_admin implements api_interface {
 		$promotion = array(
 			'goods_id'				=> $goods_id,
 			'is_promote'    		=> '1',
-			'promote_price' 		=> _POST('promote_price'),
-			'promote_start_date'    => RC_Time::local_strtotime(_POST('start_time')),
-			'promote_end_date'      => RC_Time::local_strtotime(_POST('end_time')),
+			'promote_price' 		=> $this->requestData('promote_price'),
+			'promote_start_date'    => RC_Time::local_strtotime($this->requestData('start_time')),
+			'promote_end_date'      => RC_Time::local_strtotime($this->requestData('end_time')),
 		);
 		
 		/* 检查促销时间 */

@@ -16,7 +16,7 @@ class delete_module extends api_admin implements api_interface {
 			$privilege = 0;
 			EM_Api::outPut(array(), null, $privilege);
 		}
-		$id = _POST('goods_id', '0');
+		$id = $this->requestData('goods_id', '0');
 		if ($id <= 0) {
 			EM_Api::outPut(101);
 		}
