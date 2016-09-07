@@ -20,8 +20,8 @@ class list_module extends api_admin implements api_interface {
 		
 		$status 	= $this->requestData('status', '');
 		$keywords   = $this->requestData('keywords', '');
-		$size = EM_Api::$pagination['count'];
-		$page = EM_Api::$pagination['page'];
+		$size = $this->requestData('pagination.count', 15);
+		$page = $this->requestData('pagination.page', 1);
 		
 		$filter = array(
 			'status' 	=> $status,
