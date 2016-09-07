@@ -14,7 +14,7 @@ class delete_module extends api_admin implements api_interface {
 		$priv = $ecjia->admin_priv('goods_manage');
 		if (is_ecjia_error($priv)) {
 			$privilege = 0;
-			EM_Api::outPut(array(), null, $privilege);
+			return array('data' => array(), 'pager' => null, 'privilege' => $privilege);
 		}
 		$id = $this->requestData('goods_id', '0');
 		if ($id <= 0) {

@@ -15,7 +15,7 @@ class list_module extends api_admin implements api_interface {
 	
 		if (is_ecjia_error($priv)) {
 			$privilege = 0;
-			EM_Api::outPut(array(), null, $privilege);
+			return array('data' => array(), 'pager' => null, 'privilege' => $privilege);
 		}
 		
 		$status 	= $this->requestData('status', '');
@@ -57,7 +57,7 @@ class list_module extends api_admin implements api_interface {
 				'count' => $result['page']->total_records,
 				'more'	=> $result['page']->total_pages <= $page ? 0 : 1,
 		);
-		EM_Api::outPut($data, $pager, $privilege);
+		return array('data' => $data, 'pager' => $pager, 'privilege' => $privilege);
 	}
 }
 // end

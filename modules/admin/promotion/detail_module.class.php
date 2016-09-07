@@ -17,7 +17,7 @@ class detail_module extends api_admin implements api_interface {
 		
 		if (is_ecjia_error($priv)) {
 			$privilege = 0;
-			EM_Api::outPut(array(), null, $privilege);
+			return array('data' => array(), 'pager' => null, 'privilege' => $privilege);
 		}
 	
 		$id = $this->requestData('goods_id', '0');
@@ -34,7 +34,8 @@ class detail_module extends api_admin implements api_interface {
 		
 		if (!empty($result)) {
 			$privilege = 3;
-			EM_Api::outPut($result, null, $privilege);
+			return array('data' => $result, 'pager' => null, 'privilege' => $privilege);
+			
 		} else {
 			EM_Api::outPut(13);
 		}
