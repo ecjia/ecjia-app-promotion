@@ -8,7 +8,7 @@ class admin extends ecjia_admin {
 	private $db_goods;
     public function __construct() {
         parent::__construct();
-        $this->db_goods = RC_Loader::load_app_model('goods_model', 'goods');
+        $this->db_goods = RC_Model::model('goods/goods_model');
         
         RC_Loader::load_app_func('global');
         assign_adminlog_content();
