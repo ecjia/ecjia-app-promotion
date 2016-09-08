@@ -63,7 +63,7 @@ class admin extends ecjia_admin {
 	 * 添加促销商品
 	 */
 	public function add() {
-		$this->admin_priv('promotion_add', ecjia::MSGTYPE_JSON);
+		$this->admin_priv('promotion_update', ecjia::MSGTYPE_JSON);
 		
 		ecjia_screen::get_current_screen()->add_nav_here(new admin_nav_here(RC_Lang::get('promotion::promotion.add_promotion')));
 		$this->assign('ur_here', RC_Lang::get('promotion::promotion.add_promotion'));
@@ -78,7 +78,7 @@ class admin extends ecjia_admin {
 	 * 处理添加促销商品
 	 */
 	public function insert() {
-		$this->admin_priv('promotion_add', ecjia::MSGTYPE_JSON);
+		$this->admin_priv('promotion_update', ecjia::MSGTYPE_JSON);
 		
 		$goods_id 	= intval($_POST['goods_id']);
 		$price		= $_POST['price'];
