@@ -20,13 +20,13 @@ class manage_module extends api_admin implements api_interface {
 		
 		$goods_id = $this->requestData('goods_id', 0);
 		if ($goods_id <= 0) {
-			EM_Api::outPut(101);
+			return new ecjia_error(101, '参数错误');
 		}
 		
 		$promotion_info = RC_Model::Model('goods/goods_model')->promote_goods_info($goods_id);
 		/* 多商户处理*/
 		if (isset($_SESSION['seller_id']) && $_SESSION['seller_id'] > 0 && $promotion_info['seller_id'] != $_SESSION['seller_id']) {
-			EM_Api::outPut(8);
+			return new ecjia_error(8, 'fail');
 		}
 		
 		$promotion = array(

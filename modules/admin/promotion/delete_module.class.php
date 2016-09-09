@@ -18,17 +18,17 @@ class delete_module extends api_admin implements api_interface {
 		}
 		$id = $this->requestData('goods_id', '0');
 		if ($id <= 0) {
-			EM_Api::outPut(101);
+			return new ecjia_error(101, '参数错误');
 		}
 		
 		$promotion_info = RC_Model::Model('goods/goods_model')->promote_goods_info($id);
 		/* 多商户处理*/
 		if (isset($_SESSION['seller_id']) && $_SESSION['seller_id'] > 0 && $promotion_info['seller_id'] != $_SESSION['seller_id']) {
-			EM_Api::outPut(8);
+			return new ecjia_error(8, 'fail');
 		}
 		
 		if (empty($promotion_info)) {
-			EM_Api::outPut(13);
+			return new ecjia_error(13, '不存在的信息');
 		}
 		
 		$goods_name = $promotion_info['goods_name'];
