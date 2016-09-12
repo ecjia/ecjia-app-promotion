@@ -4,7 +4,7 @@
  */
 
 function assign_adminlog_content() {
-	ecjia_admin_log::instance()->add_object('promotion', '促销商品');
+	ecjia_admin_log::instance()->add_object('promotion', RC_Lang::get('promotion::promotion.promotion'));
 }
 
 //end
