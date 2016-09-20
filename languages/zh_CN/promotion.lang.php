@@ -56,6 +56,7 @@ return array(
 	'filter_goods_name'		=> '筛选搜索到的商品名称',
 	'click_add_goods'		=> '点击商品名称选择商品',
 	'search_none_info'		=> '没有搜索到任何信息',
+	'merchants_name'		=> '商家名称',
 	
 	'js_lang' => array(
 		'select_goods_empty' 	=> '未搜索到商品信息',

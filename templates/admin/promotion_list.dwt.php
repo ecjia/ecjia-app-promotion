@@ -38,6 +38,7 @@
 			<thead>
 				<tr>
 					<th class="w120">{lang key='promotion::promotion.thumbnail'}</th>
+					<th class="w120">{lang key='promotion::promotion.merchants_name'}</th>
 					<th>{lang key='promotion::promotion.goods_name'}</th>
 					<th class="w100">{lang key='promotion::promotion.start_time'}</th>
 					<th class="w100">{lang key='promotion::promotion.end_time'}</th>
@@ -51,6 +52,7 @@
 						<img class="thumbnail" alt="{$item.goods_name}" src="{$item.goods_thumb}">
 					</a>
 				</td>
+				<td class="ecjiafc-red">{$item.merchants_name}</td>
 				<td class="hide-edit-area">
 					<span class="{if ($time >= $item.start_time) && ($time <= $item.end_time)}ecjiafc-red{/if}" >{$item.goods_name}</span><br>
 					<div class="edit-list">

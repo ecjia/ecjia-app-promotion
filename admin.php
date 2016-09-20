@@ -201,7 +201,7 @@ class admin extends ecjia_admin {
 	private function promotion_list($type = '') {
 		$filter['keywords'] = empty($_GET['keywords']) ? '' : stripslashes(trim($_GET['keywords']));
 		
-		$db_goods = RC_DB::table('goods');
+		$db_goods = RC_DB::table('goods as g');
 		$db_goods->where('is_promote', '1')->where('is_delete', '!=', 1);
 		
 		if (!empty($filter['keywords'])) {
@@ -232,7 +232,9 @@ class admin extends ecjia_admin {
 		$count = $db_goods->count();
 		$page = new ecjia_page($count, 10, 5);
 		
-		$result = $db_goods->select('goods_id', 'goods_name', 'promote_price', 'promote_start_date', 'promote_end_date', 'goods_thumb')->take(10)->skip($page->start_id-1)->get();
+		$result = $db_goods
+			->leftJoin('store_franchisee as s', RC_DB::raw('s.store_id'), '=', RC_DB::raw('g.store_id'))
+			->select('goods_id', 'goods_name', 'promote_price', 'promote_start_date', 'promote_end_date', 'goods_thumb', RC_DB::raw('s.merchants_name'))->take(10)->skip($page->start_id-1)->get();
 		
 		if (!empty($result)) {
 			foreach ($result as $key => $val) {
