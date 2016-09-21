@@ -21,7 +21,8 @@
 	<li class="{if $type eq 'on_sale'}active{/if}"><a class="data-pjax" href='{url path="promotion/admin/init" args="type=on_sale{if $filter.keywords}&keywords={$filter.keywords}{/if}"}'>{lang key='promotion::promotion.on_sale'}<span class="badge badge-info">{if $type_count.on_sale}{$type_count.on_sale}{else}0{/if}</span> </a></li>
 	<li class="{if $type eq 'coming'}active{/if}"><a class="data-pjax" href='{url path="promotion/admin/init" args="type=coming{if $filter.keywords}&keywords={$filter.keywords}{/if}"}'>{lang key='promotion::promotion.coming'}<span class="badge badge-info">{if $type_count.coming}{$type_count.coming}{else}0{/if}</span> </a></li>
 	<li class="{if $type eq 'finished'}active{/if}"><a class="data-pjax" href='{url path="promotion/admin/init" args="type=finished{if $filter.keywords}&keywords={$filter.keywords}{/if}"}'>{lang key='promotion::promotion.finished'}<span class="badge badge-info">{if $type_count.finished}{$type_count.finished}{else}0{/if}</span> </a></li>
-	
+	<li class="{if $type eq 'merchant'}active{/if}"><a class="data-pjax" href='{url path="promotion/admin/init" args="type=merchant{if $filter.keywords}&keywords={$filter.keywords}{/if}"}'>{lang key='promotion::promotion.merchant'}<span class="badge badge-info">{if $type_count.merchant}{$type_count.merchant}{else}0{/if}</span> </a></li>
+
 	<li class="ecjiaf-fn">
 		<form name="searchForm" method="post" action="{$form_search}{if $type}&type={$type}{/if}">
 			<div class="f_r form-inline">

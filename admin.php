@@ -36,7 +36,7 @@ class admin extends ecjia_admin {
 		$this->assign('ur_here', RC_Lang::get('promotion::promotion.promotion_list'));
 		$this->assign('action_link', array('href' => RC_Uri::url('promotion/admin/add'), 'text' => RC_Lang::get('promotion::promotion.add_promotion')));
 		
-		$type = isset($_GET['type']) && in_array($_GET['type'], array('on_sale', 'coming', 'finished')) ? trim($_GET['type']) : '';
+		$type = isset($_GET['type']) && in_array($_GET['type'], array('on_sale', 'coming', 'finished', 'merchant')) ? trim($_GET['type']) : '';
 		$promotion_list = $this->promotion_list($type);
 
 		$this->assign('promotion_list', $promotion_list);
@@ -212,6 +212,7 @@ class admin extends ecjia_admin {
 		$type_count = $db_goods->select(RC_DB::raw('count(*) as count'),
 				RC_DB::raw('SUM(IF(promote_start_date <'.$time.' and promote_end_date > '.$time.', 1, 0)) as on_sale'),
 				RC_DB::raw('SUM(IF(promote_start_date >'.$time.', 1, 0)) as coming'),
+				RC_DB::raw('SUM(IF(g.store_id > 0, 1, 0)) as merchant'),
 				RC_DB::raw('SUM(IF(promote_end_date <'.$time.', 1, 0)) as finished'))->first();
 		
 		if ($type == 'on_sale') {
@@ -227,6 +228,10 @@ class admin extends ecjia_admin {
 		
 		if ($type == 'finished') {
 			$db_goods->where('promote_end_date', '<=', $time);
+		}
+
+		if ($type == 'merchant') {
+			$db_goods->where(RC_DB::raw('g.store_id'), '>', 0);
 		}
 		
 		$count = $db_goods->count();

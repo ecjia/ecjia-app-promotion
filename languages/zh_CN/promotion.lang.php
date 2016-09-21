@@ -35,6 +35,7 @@ return array(
 	'on_sale'	=> '正在进行中',
 	'coming'	=> '即将开始',
 	'finished'	=> '已结束',
+	'merchant'	=> '商家',
 		
 	'goods_keywords'	=> '请输入商品名称关键字',
 	'thumbnail'			=> '缩略图',
