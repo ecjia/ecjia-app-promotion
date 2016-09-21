@@ -48,8 +48,8 @@
 				</tr>
 			</thead>
 			<!-- {foreach from=$promotion_list.item item=item key=key} -->
-			<tr class="big">
-				<td>
+			<tr>
+				<td class="big">
 					<a class="data-pjax" href="{url path='promotion/admin/edit' args="id={$item.goods_id}"}" title="{$item.goods_name}" >
 						<img class="thumbnail" alt="{$item.goods_name}" src="{$item.goods_thumb}">
 					</a>
