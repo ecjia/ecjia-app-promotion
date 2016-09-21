@@ -199,13 +199,20 @@ class admin extends ecjia_admin {
 	 * @return void
 	 */
 	private function promotion_list($type = '') {
-		$filter['keywords'] = empty($_GET['keywords']) ? '' : stripslashes(trim($_GET['keywords']));
+		$filter['keywords'] 			= empty($_GET['keywords']) 			? '' : stripslashes(trim($_GET['keywords']));
+		$filter['merchant_keywords'] 	= empty($_GET['merchant_keywords']) ? '' : stripslashes(trim($_GET['merchant_keywords']));
 		
-		$db_goods = RC_DB::table('goods as g');
+		$db_goods = RC_DB::table('goods as g')
+			->leftJoin('store_franchisee as s', RC_DB::raw('s.store_id'), '=', RC_DB::raw('g.store_id'));
+		
 		$db_goods->where('is_promote', '1')->where('is_delete', '!=', 1);
 		
 		if (!empty($filter['keywords'])) {
 			$db_goods->where('goods_name', 'like', '%'.mysql_like_quote($filter['keywords']).'%');
+		}
+		
+		if (!empty($filter['merchant_keywords'])) {
+			$db_goods->where(RC_DB::raw('s.merchants_name'), 'like', '%'.mysql_like_quote($filter['merchant_keywords']).'%');
 		}
 		
 		$time = RC_Time::gmtime();
@@ -238,7 +245,6 @@ class admin extends ecjia_admin {
 		$page = new ecjia_page($count, 10, 5);
 		
 		$result = $db_goods
-			->leftJoin('store_franchisee as s', RC_DB::raw('s.store_id'), '=', RC_DB::raw('g.store_id'))
 			->select('goods_id', 'goods_name', 'promote_price', 'promote_start_date', 'promote_end_date', 'goods_thumb', RC_DB::raw('s.merchants_name'))->take(10)->skip($page->start_id-1)->get();
 		
 		if (!empty($result)) {
