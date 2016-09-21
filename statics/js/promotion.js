@@ -7,9 +7,14 @@
 		search : function() {
 			$("form[name='searchForm']").on('submit', function(e) {
 				e.preventDefault();
+				var merchant_keywords = $("input[name='merchant_keywords']").val();
 				var keywords = $("input[name='keywords']").val();
 				var url = $("form[name='searchForm']").attr('action'); 
 
+				if (merchant_keywords) {
+					url += '&merchant_keywords=' + merchant_keywords;
+				}
+				
 				if (keywords) {
 					url += '&keywords=' + keywords;
 				}

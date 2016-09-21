@@ -38,6 +38,7 @@ return array(
 	'merchant'	=> '商家',
 		
 	'goods_keywords'	=> '请输入商品名称关键字',
+	'merchant_keywords' => '请输入商家名称关键字',
 	'thumbnail'			=> '缩略图',
 	'goods_name'		=> '商品名称',
 	'start_time'		=> '开始时间',
