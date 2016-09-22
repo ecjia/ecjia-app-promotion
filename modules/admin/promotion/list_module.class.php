@@ -61,7 +61,7 @@ class list_module extends api_admin implements api_interface {
         //         'count' => $result['page']->total_records,
         //         'more'    => $result['page']->total_pages <= $page ? 0 : 1,
         // );
-        return array('data' => $data, 'succeed' => 1);
+        return array('data' => $data);
     }
 }
 // end
