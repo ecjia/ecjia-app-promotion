@@ -10,6 +10,9 @@ class delete_module extends api_admin implements api_interface {
     public function handleRequest(\Royalcms\Component\HttpKernel\Request $request) {
 
 		$this->authadminSession();
+        if ($_SESSION['admin_id'] <= 0 && $_SESSION['staff_id'] <= 0) {
+            return new ecjia_error(100, 'Invalid session');
+        }
 		$priv = $this->admin_priv('goods_manage');
 		if (is_ecjia_error($priv)) {
 			return $priv;
@@ -21,7 +24,7 @@ class delete_module extends api_admin implements api_interface {
 
 		$promotion_info = RC_Model::Model('goods/goods_model')->promote_goods_info($id);
 		/* 多商户处理*/
-		if (isset($_SESSION['seller_id']) && $_SESSION['seller_id'] > 0 && $promotion_info['seller_id'] != $_SESSION['seller_id']) {
+		if (isset($_SESSION['store_id']) && $_SESSION['store_id'] > 0 && $promotion_info['store_id'] != $_SESSION['store_id']) {
 			return new ecjia_error(8, 'fail');
 		}
 
