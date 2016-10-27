@@ -38,13 +38,14 @@ class admin extends ecjia_admin {
 		
 		$type = isset($_GET['type']) && in_array($_GET['type'], array('on_sale', 'coming', 'finished', 'merchant')) ? trim($_GET['type']) : '';
 		$promotion_list = $this->promotion_list($type);
-
+		$time = RC_Time::gmtime();
+		
 		$this->assign('promotion_list', $promotion_list);
 		$this->assign('type_count', $promotion_list['count']);
 		$this->assign('filter', $promotion_list['filter']);
 		
 		$this->assign('type', $type);
-		$this->assign('time', RC_Time::local_date(ecjia::config('date_format'), $time));
+		$this->assign('time', $time);
 		$this->assign('form_search', RC_Uri::url('promotion/admin/init'));
 		
 		$this->display('promotion_list.dwt');

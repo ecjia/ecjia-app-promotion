@@ -56,7 +56,7 @@
 				</td>
 				<td class="ecjiafc-red">{$item.merchants_name}</td>
 				<td class="hide-edit-area">
-					<span class="{if ($time >= $item.start_time) && ($time <= $item.end_time)}ecjiafc-red{/if}" >{$item.goods_name}</span><br>
+					<span class="{if ($time >= $item.promote_start_date) && ($time <= $item.promote_end_date)}ecjiafc-red{/if}" >{$item.goods_name}</span><br>
 					<div class="edit-list">
 						<a class="data-pjax" href='{RC_Uri::url("promotion/admin/edit", "id={$item.goods_id}")}' title="{lang key='system::system.edit'}">{lang key='system::system.edit'}</a>&nbsp;|&nbsp;
 						<a data-toggle="ajaxremove" class="ajaxremove ecjiafc-red" data-msg="{lang key='promotion::promotion.drop_confirm'}" href='{RC_Uri::url("promotion/admin/remove", "id={$item.goods_id}")}' title="{lang key='system::system.drop'}">{lang key='system::system.drop'}</a>
