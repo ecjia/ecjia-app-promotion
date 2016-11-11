@@ -50,9 +50,9 @@ class list_module extends api_admin implements api_interface {
                     'formatted_promote_start_date'      => $val['promote_start_date'],
                     'formatted_promote_end_date'        => $val['promote_end_date'],
                     'img'                               => array(
-                                                            'goods_img'    => $val['goods_img'],
-                                                            'original_img' => $val['original_img'],
-                                                            'goods_thumb'  => $val['goods_thumb']
+                                                            'thumb'    => $val['goods_img'],
+                                                            'url' 	   => $val['original_img'],
+                                                            'small'    => $val['goods_thumb']
                                                         ),
                 );
             }
