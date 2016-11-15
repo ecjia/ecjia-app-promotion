@@ -25,6 +25,7 @@
 					<label class="control-label">{lang key='promotion::promotion.label_goods_keywords'}</label>
 					<div class="controls">
 						<input type="text" name="keywords" />
+						<input type="hidden" name="goods_id" value="{$promotion_info.goods_id}">
 						<input type="button" value="{lang key='promotion::promotion.search'}" class="btn searchGoods" data-url='{url path="promotion/admin/search_goods"}'>
 					</div>
 				</div>

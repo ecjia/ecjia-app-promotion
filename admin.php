@@ -112,16 +112,16 @@ class admin extends ecjia_admin {
 		
 		$this->assign('ur_here', RC_Lang::get('promotion::promotion.edit_promotion'));
 		$this->assign('action_link', array('href' => RC_Uri::url('promotion/admin/init'), 'text' => RC_Lang::get('promotion::promotion.promotion_list')));
-		
+
 		$id = intval($_GET['id']);
 		$promotion_info = RC_DB::table('goods')
 		->select('goods_id', 'goods_name', 'promote_price', 'promote_start_date', 'promote_end_date')
 		->where('goods_id', $id)
 		->first();
-		
+	   
 		$promotion_info['promote_start_date'] 	= RC_Time::local_date(ecjia::config('date_format'), $promotion_info['promote_start_date']);
 		$promotion_info['promote_end_date'] 	= RC_Time::local_date(ecjia::config('date_format'), $promotion_info['promote_end_date'] );
-		
+
 		$this->assign('promotion_info', $promotion_info);
 		$this->assign('form_action', RC_Uri::url('promotion/admin/update'));
 
@@ -177,7 +177,10 @@ class admin extends ecjia_admin {
 	 */
 	public function search_goods() {
 		$goods_list = array();
-		$row = RC_Api::api('goods', 'get_goods_list', array('keyword' => $_POST['keyword']));
+        $arr = $_POST;
+        $goods_id = !empty($_POST['goods_id']) ? intval($_POST['goods_id']) : '';
+        $arr['store_id'] = RC_DB::table('goods')->select('store_id')->where('goods_id', $goods_id)->pluck();
+		$row = RC_Api::api('goods', 'get_goods_list', $arr);
 		if (!is_ecjia_error($row)) {
 			if (!empty($row)) {
 				foreach ($row AS $key => $val) {

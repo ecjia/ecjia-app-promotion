@@ -14,7 +14,6 @@
 				if (merchant_keywords) {
 					url += '&merchant_keywords=' + merchant_keywords;
 				}
-				
 				if (keywords) {
 					url += '&keywords=' + keywords;
 				}
@@ -35,9 +34,11 @@
 		search_goods : function () {
 			$('.searchGoods').on('click',function(e){
 				var keyword = $("input[name='keywords']").val();
+				var goods_id = $("input[name='goods_id']").val();
 				var searchURL = $('.searchGoods').attr('data-url');
 				var filters = {
 						'keyword'	: keyword,
+						'goods_id'	: goods_id,
 				};
 				$.post(searchURL, filters, function(data) {
 					app.promotion_info.goods_list(data);
