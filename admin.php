@@ -17,8 +17,10 @@ class admin extends ecjia_admin {
         RC_Style::enqueue_style('chosen');
         RC_Script::enqueue_script('jquery-uniform');
         RC_Style::enqueue_style('uniform-aristo');
-        RC_Style::enqueue_style('datepicker', RC_Uri::admin_url('statics/lib/datepicker/datepicker.css'));
-        RC_Script::enqueue_script('bootstrap-datepicker', RC_Uri::admin_url('statics/lib/datepicker/bootstrap-datepicker.min.js'));
+        
+		RC_Script::enqueue_script('bootstrap-datepicker', RC_Uri::admin_url('statics/lib/datepicker/bootstrap-datetimepicker.js'));
+		RC_Style::enqueue_style('datepicker', RC_Uri::admin_url('statics/lib/datepicker/bootstrap-datetimepicker.min.css'));
+		
         RC_Script::enqueue_script('promotion', RC_App::apps_url('statics/js/promotion.js', __FILE__), array(), false, true);
         
         ecjia_screen::get_current_screen()->add_nav_here(new admin_nav_here(RC_Lang::get('promotion::promotion.promotion'), RC_Uri::url('mobilebuy/admin/init')));
@@ -119,8 +121,8 @@ class admin extends ecjia_admin {
 		->where('goods_id', $id)
 		->first();
 	   
-		$promotion_info['promote_start_date'] 	= RC_Time::local_date(ecjia::config('date_format'), $promotion_info['promote_start_date']);
-		$promotion_info['promote_end_date'] 	= RC_Time::local_date(ecjia::config('date_format'), $promotion_info['promote_end_date'] );
+		$promotion_info['promote_start_date'] 	= RC_Time::local_date('Y-m-d H:i:s', $promotion_info['promote_start_date']);
+		$promotion_info['promote_end_date'] 	= RC_Time::local_date('Y-m-d H:i:s', $promotion_info['promote_end_date'] );
 
 		$this->assign('promotion_info', $promotion_info);
 		$this->assign('form_action', RC_Uri::url('promotion/admin/update'));
@@ -253,8 +255,8 @@ class admin extends ecjia_admin {
 		
 		if (!empty($result)) {
 			foreach ($result as $key => $val) {
-				$result[$key]['start_time'] = RC_Time::local_date(ecjia::config('date_format'), $val['promote_start_date']);
-				$result[$key]['end_time']   = RC_Time::local_date(ecjia::config('date_format'), $val['promote_end_date']);
+				$result[$key]['start_time'] = RC_Time::local_date('Y-m-d H:i:s', $val['promote_start_date']);
+				$result[$key]['end_time']   = RC_Time::local_date('Y-m-d H:i:s', $val['promote_end_date']);
 				if (!file_exists(RC_Upload::upload_path() . $val['goods_thumb']) || empty($val['goods_thumb'])) {
 					$result[$key]['goods_thumb'] = RC_Uri::admin_url('statics/images/nopic.png');
 				} else {

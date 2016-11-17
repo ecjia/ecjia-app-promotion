@@ -42,8 +42,8 @@
 					<th class="w120">{lang key='promotion::promotion.thumbnail'}</th>
 					<th class="w120">{lang key='promotion::promotion.merchants_name'}</th>
 					<th>{lang key='promotion::promotion.goods_name'}</th>
-					<th class="w100">{lang key='promotion::promotion.start_time'}</th>
-					<th class="w100">{lang key='promotion::promotion.end_time'}</th>
+					<th class="w130">{lang key='promotion::promotion.start_time'}</th>
+					<th class="w130">{lang key='promotion::promotion.end_time'}</th>
 					<th class="w80">{lang key='promotion::promotion.promotion_price'}</th>
 				</tr>
 			</thead>
