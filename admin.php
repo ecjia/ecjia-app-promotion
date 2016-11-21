@@ -98,6 +98,16 @@ class admin extends ecjia_admin {
 		}
 		RC_DB::table('goods')->where('goods_id', $goods_id)->update(array('is_promote' => 1, 'promote_price' => $price, 'promote_start_date' => $start_time, 'promote_end_date' => $end_time));
 		
+		/* 释放app缓存*/
+		$orm_goods_db = RC_Model::model('goods/orm_goods_model');
+		$goods_cache_array = $orm_goods_db->get_cache_item('goods_list_cache_key_array');
+		if (!empty($goods_cache_array)) {
+			foreach ($goods_cache_array as $val) {
+				$orm_goods_db->delete_cache_item($val);
+			}
+			$orm_goods_db->delete_cache_item('goods_list_cache_key_array');
+		}
+		
 		ecjia_admin::admin_log($goods_name, 'add', 'promotion');
 		$links[] = array('text' => RC_Lang::get('promotion::promotion.return_promotion_list'), 'href'=> RC_Uri::url('promotion/admin/init'));
 		$links[] = array('text' => RC_Lang::get('promotion::promotion.continue_add_promotion'), 'href'=> RC_Uri::url('promotion/admin/add'));
@@ -154,6 +164,16 @@ class admin extends ecjia_admin {
 			RC_DB::table('goods')->where('goods_id', $old_goods_id)->update(array('is_promote' => 0, 'promote_price' => 0, 'promote_start_date' => 0, 'promote_end_date' => 0));
 		}
 		
+		/* 释放app缓存*/
+		$orm_goods_db = RC_Model::model('goods/orm_goods_model');
+		$goods_cache_array = $orm_goods_db->get_cache_item('goods_list_cache_key_array');
+		if (!empty($goods_cache_array)) {
+			foreach ($goods_cache_array as $val) {
+				$orm_goods_db->delete_cache_item($val);
+			}
+			$orm_goods_db->delete_cache_item('goods_list_cache_key_array');
+		}
+		
 		ecjia_admin::admin_log($goods_name, 'edit', 'promotion');
 		$this->showmessage(RC_Lang::get('promotion::promotion.edit_promotion_success'), ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_SUCCESS, array('pjaxurl' => RC_Uri::url('promotion/admin/edit', array('id' => $goods_id))));
 	}
@@ -169,6 +189,16 @@ class admin extends ecjia_admin {
 		
 		//更新商品为非促销商品
 		RC_DB::table('goods')->where('goods_id', $id)->update(array('is_promote' => 0, 'promote_price' => 0, 'promote_start_date' => 0, 'promote_end_date' => 0));
+		
+		/* 释放app缓存*/
+		$orm_goods_db = RC_Model::model('goods/orm_goods_model');
+		$goods_cache_array = $orm_goods_db->get_cache_item('goods_list_cache_key_array');
+		if (!empty($goods_cache_array)) {
+			foreach ($goods_cache_array as $val) {
+				$orm_goods_db->delete_cache_item($val);
+			}
+			$orm_goods_db->delete_cache_item('goods_list_cache_key_array');
+		}
 		
 		ecjia_admin::admin_log($goods_name, 'remove', 'promotion');
 		$this->showmessage(RC_Lang::get('promotion::promotion.remove_success'), ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_SUCCESS);
