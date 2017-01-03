@@ -133,7 +133,7 @@ class merchant extends ecjia_merchant {
 		$db = RC_DB::table('goods');
 		$db->where(RC_DB::raw('goods_id'), $id);
 		if (!empty($_SESSION['store_id']) && $_SESSION['store_id'] > 0) {
-			$db->where(RC_DB::raw('store_id'),  $_SESSION['store_id']);
+			$db->where(RC_DB::raw('store_id'), $_SESSION['store_id']);
 		}
 		$promotion_info = $db
 		->select('goods_id', 'goods_name', 'promote_price', 'promote_start_date', 'promote_end_date')
