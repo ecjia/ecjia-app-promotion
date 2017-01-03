@@ -164,9 +164,10 @@ class merchant extends ecjia_merchant {
 		$start_time 	= RC_Time::local_strtotime($_POST['start_time']);
 		$end_time 		= RC_Time::local_strtotime($_POST['end_time']);
 		$old_goods_id   = intval($_POST['old_goods_id']);
+
 		$db = RC_DB::table('goods');
 		if (!empty($_SESSION['store_id']) && $_SESSION['store_id'] > 0) {
-			$db->where(RC_DB::raw('store_id'), $_SESSION['store_id']);
+			$db->where('store_id', $_SESSION['store_id']);
 		}
 		if ($start_time >= $end_time) {
 			return $this->showmessage(RC_Lang::get('promotion::promotion.promotion_invalid'), ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_ERROR);
@@ -175,7 +176,7 @@ class merchant extends ecjia_merchant {
 		
 		//更新原来的商品为非促销商品
 		if ($goods_id != $old_goods_id) {
-			$db->where('goods_id', $old_goods_id)->update(array('is_promote' => 0, 'promote_price' => 0, 'promote_start_date' => 0, 'promote_end_date' => 0));
+			RC_DB::table('goods')->where('goods_id', $old_goods_id)->update(array('is_promote' => 0, 'promote_price' => 0, 'promote_start_date' => 0, 'promote_end_date' => 0));
 		}
 		
 		/* 释放app缓存*/
