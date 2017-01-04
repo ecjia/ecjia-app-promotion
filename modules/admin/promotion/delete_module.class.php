@@ -36,7 +36,11 @@ class delete_module extends api_admin implements api_interface {
 		$result = RC_Model::Model('goods/goods_model')->promotion_remove($id);
 		RC_Loader::load_app_func('global', 'promotion');
 		assign_adminlog_content();
-		ecjia_admin::admin_log($goods_name, 'remove', 'promotion');
+		if ($_SESSION['store_id'] > 0) {
+		    ecjia_merchant::admin_log($goods_name.'【来源掌柜】', 'remove', 'promotion');
+		} else {
+		    ecjia_admin::admin_log($goods_name.'【来源掌柜】', 'remove', 'promotion');
+		}
 		
 		$orm_goods_db = RC_Model::model('goods/orm_goods_model');
 		/* 释放app缓存*/

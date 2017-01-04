@@ -51,7 +51,11 @@ class manage_module extends api_admin implements api_interface {
 
         RC_Loader::load_app_func('global', 'promotion');
         assign_adminlog_content();
-        ecjia_admin::admin_log($promotion_info['goods_name'], 'edit', 'promotion');
+        if ($_SESSION['store_id'] > 0) {
+            ecjia_merchant::admin_log($promotion_info['goods_name'].'【来源掌柜】', 'edit', 'promotion');
+        } else {
+            ecjia_admin::admin_log($promotion_info['goods_name'].'【来源掌柜】', 'edit', 'promotion');
+        }
         
         $orm_goods_db = RC_Model::model('goods/orm_goods_model');
         /* 释放app缓存*/
