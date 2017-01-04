@@ -37,6 +37,7 @@ class delete_module extends api_admin implements api_interface {
 		RC_Loader::load_app_func('global', 'promotion');
 		assign_adminlog_content();
 		if ($_SESSION['store_id'] > 0) {
+		    RC_Loader::load_app_class('ecjia_merchant', 'merchant');
 		    ecjia_merchant::admin_log($goods_name.'【来源掌柜】', 'remove', 'promotion');
 		} else {
 		    ecjia_admin::admin_log($goods_name.'【来源掌柜】', 'remove', 'promotion');
