@@ -1,8 +1,10 @@
 <?php
 defined('IN_ECJIA') or exit('No permission resources.');
+
 /**
  * ECJIA 促销管理程序
  */
+ 
 class merchant extends ecjia_merchant {
 	public function __construct() {
         parent::__construct();
