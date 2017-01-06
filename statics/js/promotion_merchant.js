@@ -113,4 +113,5 @@
 	}
 
 })(ecjia.merchant, jQuery);
+
 // end

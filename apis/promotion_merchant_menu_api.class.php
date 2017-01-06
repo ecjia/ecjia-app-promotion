@@ -4,9 +4,7 @@ defined('IN_ECJIA') or exit('No permission resources.');
 /**
  * 后台促销菜单API
  * @author royalwang
- *
  */
- 
 class promotion_merchant_menu_api extends Component_Event_Api {
 	
 	public function call(&$options) {	

@@ -4,7 +4,6 @@ defined('IN_ECJIA') or exit('No permission resources.');
 /**
  * 促销活动应用
  */
-
 return array(
 	'identifier' 	=> 'ecjia.promotion',
 	'directory' 	=> 'promotion',

@@ -4,7 +4,6 @@ defined('IN_ECJIA') or exit('No permission resources.');
 /**
  * ECJIA 应用语言包
  */
-
 return array(
 	'promotion'				=> '促销商品',
 	'promotion_list'		=> '促销商品列表',

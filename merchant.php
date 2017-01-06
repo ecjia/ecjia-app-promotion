@@ -4,7 +4,6 @@ defined('IN_ECJIA') or exit('No permission resources.');
 /**
  * ECJIA 促销管理程序
  */
- 
 class merchant extends ecjia_merchant {
 	public function __construct() {
         parent::__construct();
@@ -33,6 +32,7 @@ class merchant extends ecjia_merchant {
 	 */
 	public function init() {
 		$this->admin_priv('promotion_manage', ecjia::MSGTYPE_JSON);
+		
 		ecjia_merchant_screen::get_current_screen()->add_nav_here(new admin_nav_here(RC_Lang::get('promotion::promotion.promotion')));
 		
 		$this->assign('ur_here', RC_Lang::get('promotion::promotion.promotion_list'));
