@@ -63,8 +63,8 @@ class merchant extends ecjia_merchant {
         RC_Style::enqueue_style('uniform-aristo');
         
       	/*时间控件*/
-        RC_Script::enqueue_script('datepicker', RC_Uri::admin_url('statics/lib/datepicker/bootstrap-datetimepicker.js'));
-		RC_Style::enqueue_style('datepicker', RC_Uri::admin_url('statics/lib/datepicker/bootstrap-datetimepicker.min.css'));
+        RC_Script::enqueue_script('bootstrap-datetimepicker', RC_Uri::admin_url('statics/lib/datepicker/bootstrap-datetimepicker.js'));
+		RC_Style::enqueue_style('datetimepicker', RC_Uri::admin_url('statics/lib/datepicker/bootstrap-datetimepicker.min.css'));
         
         RC_Script::enqueue_script('promotion', RC_App::apps_url('statics/js/promotion_merchant.js', __FILE__), array(), false, true);
         
