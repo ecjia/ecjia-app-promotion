@@ -43,7 +43,8 @@
                 todayHighlight: 1,
                 startView: 2,
                 forceParse: 0,
-                minuteStep: 1
+                minuteStep: 1,
+                container: '.main_content',
             });
 			app.promotion_info.search_goods();
 			app.promotion_info.submit_form();
