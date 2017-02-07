@@ -103,6 +103,7 @@ return array(
 	'click_add_goods'		=> '点击商品名称选择商品',
 	'search_none_info'		=> '没有搜索到任何信息',
 	'merchants_name'		=> '商家名称',
+	'self'					=> '自营',
 	
 	'js_lang' => array(
 		'select_goods_empty' 	=> '未搜索到商品信息',
