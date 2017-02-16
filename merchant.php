@@ -76,7 +76,7 @@ class merchant extends ecjia_merchant {
 	 * 促销商品列表页
 	 */
 	public function init() {
-		$this->admin_priv('promotion_manage', ecjia::MSGTYPE_JSON);
+		$this->admin_priv('promotion_manage');
 		
 		ecjia_merchant_screen::get_current_screen()->add_nav_here(new admin_nav_here(RC_Lang::get('promotion::promotion.promotion')));
 		
@@ -102,7 +102,7 @@ class merchant extends ecjia_merchant {
 	 * 添加促销商品
 	 */
 	public function add() {
-		$this->admin_priv('promotion_update', ecjia::MSGTYPE_JSON);
+		$this->admin_priv('promotion_update');
 		
 		ecjia_merchant_screen::get_current_screen()->add_nav_here(new admin_nav_here(RC_Lang::get('promotion::promotion.add_promotion')));
 		$this->assign('ur_here', RC_Lang::get('promotion::promotion.add_promotion'));
@@ -169,7 +169,7 @@ class merchant extends ecjia_merchant {
 	 * 编辑促销商品
 	 */
 	public function edit() {	
-		$this->admin_priv('promotion_update', ecjia::MSGTYPE_JSON);
+		$this->admin_priv('promotion_update');
 		
 		ecjia_merchant_screen::get_current_screen()->add_nav_here(new admin_nav_here(RC_Lang::get('promotion::promotion.edit_promotion')));
 		
