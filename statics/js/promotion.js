@@ -55,8 +55,8 @@
 				var goods_id = $("input[name='goods_id']").val();
 				var searchURL = $('.searchGoods').attr('data-url');
 				var filters = {
-						'keyword'	: keyword,
-						'goods_id'	: goods_id,
+					'keyword'	: keyword,
+					'goods_id'	: goods_id,
 				};
 				$.post(searchURL, filters, function(data) {
 					app.promotion_info.goods_list(data);
