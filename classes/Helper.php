@@ -52,7 +52,6 @@ use RC_Lang;
 class Helper
 {
     
-    
     /**
      * 添加管理员记录日志操作对象
      */
