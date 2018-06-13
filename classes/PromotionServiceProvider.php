@@ -2,9 +2,9 @@
 
 namespace Ecjia\App\Promotion;
 
-use Royalcms\Component\App\AppServiceProvider;
+use Royalcms\Component\App\AppParentServiceProvider;
 
-class PromotionServiceProvider extends  AppServiceProvider
+class PromotionServiceProvider extends  AppParentServiceProvider
 {
     
     public function boot()
