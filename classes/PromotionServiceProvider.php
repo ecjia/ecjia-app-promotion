@@ -9,7 +9,7 @@ class PromotionServiceProvider extends  AppParentServiceProvider
     
     public function boot()
     {
-        $this->package('ecjia/app-promotion', null, dirname(__DIR__));
+        $this->package('ecjia/app-promotion');
     }
     
     public function register()
