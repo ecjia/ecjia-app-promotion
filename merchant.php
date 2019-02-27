@@ -66,7 +66,8 @@ class merchant extends ecjia_merchant {
 		RC_Style::enqueue_style('datetimepicker', RC_Uri::admin_url('statics/lib/datepicker/bootstrap-datetimepicker.min.css'));
         
         RC_Script::enqueue_script('promotion', RC_App::apps_url('statics/js/promotion_merchant.js', __FILE__), array(), false, true);
-        
+        RC_Script::localize_script('promotion', 'js_lang', config('app-promotion::jslang.promotion_page'));
+
         ecjia_merchant_screen::get_current_screen()->add_nav_here(new admin_nav_here(__('促销管理', 'promotion'), RC_Uri::url('promotion/merchant/init')));
         ecjia_merchant_screen::get_current_screen()->set_parentage('promotion', 'promotion/merchant.php');
     }
