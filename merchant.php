@@ -145,7 +145,7 @@ class merchant extends ecjia_merchant {
 		}
 		$goods_info = RC_DB::table('goods')->where('goods_id', $goods_id)->first();
 		if ($price > $goods_info['shop_price']) {
-			return $this->showmessage('促销价不能大于商品价格：'.$goods_info['shop_price'], ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_ERROR); 
+			return $this->showmessage(__('促销价不能大于商品价格：', 'promotion') .$goods_info['shop_price'], ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_ERROR);
 		}
 		
 		$start_time = RC_Time::local_strtotime($_POST['start_time']);
