@@ -92,14 +92,12 @@ class merchant extends ecjia_merchant
 
         $type           = isset($_GET['type']) && in_array($_GET['type'], array('on_sale', 'coming', 'finished', 'merchant')) ? trim($_GET['type']) : 'on_sale';
         $promotion_list = $this->promotion_list($type);
-        $time           = RC_Time::gmtime();
 
         $this->assign('promotion_list', $promotion_list);
         $this->assign('type_count', $promotion_list['count']);
         $this->assign('filter', $promotion_list['filter']);
 
         $this->assign('type', $type);
-        $this->assign('time', $time);
         $this->assign('form_search', RC_Uri::url('promotion/merchant/init'));
 
         $this->display('promotion_list.dwt');
@@ -582,8 +580,9 @@ class merchant extends ecjia_merchant
             $db_goods->where('goods_name', 'like', '%' . mysql_like_quote($filter['keywords']) . '%');
         }
 
-        $time       = RC_Time::gmtime();
-        $type_count = $db_goods->select(RC_DB::raw('count(*) as count'),
+        $time = RC_Time::gmtime();
+
+        $type_count = $db_goods->select(
             RC_DB::raw('SUM(IF(promote_start_date <' . $time . ' and promote_end_date > ' . $time . ', 1, 0)) as on_sale'),
             RC_DB::raw('SUM(IF(promote_start_date >' . $time . ', 1, 0)) as coming'),
             RC_DB::raw('SUM(IF(promote_end_date <' . $time . ', 1, 0)) as finished'))->first();
@@ -598,10 +597,6 @@ class merchant extends ecjia_merchant
 
         if ($type == 'finished') {
             $db_goods->where('promote_end_date', '<=', $time);
-        }
-
-        if ($type == 'merchant') {
-            $db_goods->where(RC_DB::raw('g.store_id'), '>', 0);
         }
 
         $count = $db_goods->count();

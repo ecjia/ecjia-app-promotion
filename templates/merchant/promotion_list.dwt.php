@@ -54,10 +54,10 @@
                     <table class="table table-striped table-hover table-hide-edit">
                         <thead>
                             <tr>
-                                <th class="w350">{t domain="promotion"}活动商品（SPU/SKU）{/t}</th>
-                                <th>{t domain="promotion"}活动范围{/t}</th>
-                                <th class="w80">{t domain="promotion"}限购总数{/t}</th>
-                                <th class="w80">{t domain="promotion"}每人限购{/t}</th>
+                                <th>{t domain="promotion"}活动商品（SPU/SKU）{/t}</th>
+                                <th class="w130">{t domain="promotion"}活动范围{/t}</th>
+                                <th class="w100">{t domain="promotion"}限购总数{/t}</th>
+                                <th class="w100">{t domain="promotion"}每人限购{/t}</th>
                                 <th class="w100">{t domain="promotion"}活动价{/t}</th>
                                 {if $type eq 'coming'}
                                 <th class="w150">{t domain="promotion"}开始时间{/t}</th>
