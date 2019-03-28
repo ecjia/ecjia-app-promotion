@@ -315,20 +315,17 @@ class merchant extends ecjia_merchant
 
         $db = RC_DB::table('goods');
 
-        if ($goods_id == $old_id) {
-            $db->where('goods_id', '!=', $goods_id);
-        } else {
-            $db->where('goods_id', $goods_id);
-        }
-        $time = RC_Time::gmtime();
-        $info = $db
-            ->where('is_promote', 1)
-            ->where('promote_start_date', '<=', $time)
-            ->where('promote_end_date', '>=', $time)
-            ->first();
+        if ($goods_id != $old_id) {
+            $time = RC_Time::gmtime();
+            $info = $db->where('goods_id', $goods_id)
+                ->where('is_promote', 1)
+                ->where('promote_start_date', '<=', $time)
+                ->where('promote_end_date', '>=', $time)
+                ->first();
 
-        if (!empty($info)) {
-            return $this->showmessage(__('您选择的商品目前正在进行促销活动，请选择其他商品', 'promotion'), ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_ERROR);
+            if (!empty($info)) {
+                return $this->showmessage(__('您选择的商品目前正在进行促销活动，请选择其他商品', 'promotion'), ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_ERROR);
+            }
         }
 
         //商品信息
