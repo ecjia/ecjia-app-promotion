@@ -49,12 +49,14 @@ defined('IN_ECJIA') or exit('No permission resources.');
 /**
  * ECJIA 促销管理程序
  */
-class admin extends ecjia_admin {
-	public function __construct() {
+class admin extends ecjia_admin
+{
+    public function __construct()
+    {
         parent::__construct();
-        
+
         Ecjia\App\Promotion\Helper::assign_adminlog_content();
-        
+
         RC_Script::enqueue_script('jquery-validate');
         RC_Script::enqueue_script('jquery-form');
         RC_Script::enqueue_script('smoke');
@@ -62,167 +64,181 @@ class admin extends ecjia_admin {
         RC_Style::enqueue_style('chosen');
         RC_Script::enqueue_script('jquery-uniform');
         RC_Style::enqueue_style('uniform-aristo');
-        
+
         //时间控件
-		RC_Script::enqueue_script('bootstrap-datetimepicker', RC_Uri::admin_url('statics/lib/datepicker/bootstrap-datetimepicker.js'));
-		RC_Style::enqueue_style('datetimepicker', RC_Uri::admin_url('statics/lib/datepicker/bootstrap-datetimepicker.min.css'));
-		
+        RC_Script::enqueue_script('bootstrap-datetimepicker', RC_Uri::admin_url('statics/lib/datepicker/bootstrap-datetimepicker.js'));
+        RC_Style::enqueue_style('datetimepicker', RC_Uri::admin_url('statics/lib/datepicker/bootstrap-datetimepicker.min.css'));
+
         RC_Script::enqueue_script('promotion', RC_App::apps_url('statics/js/promotion.js', __FILE__), array(), false, 1);
         RC_Script::localize_script('promotion', 'js_lang', config('app-promotion::jslang.promotion_page'));
 
         ecjia_screen::get_current_screen()->add_nav_here(new admin_nav_here(__('促销商品', 'promotion'), RC_Uri::url('promotion/admin/init')));
     }
-    	
-	/**
-	 * 促销商品列表页
-	 */
-	public function init() {
-		$this->admin_priv('promotion_manage');
-		
-		ecjia_screen::get_current_screen()->remove_last_nav_here();
-		ecjia_screen::get_current_screen()->add_nav_here(new admin_nav_here(__('促销商品', 'promotion')));
-		
-		$this->assign('ur_here', __('促销商品列表', 'promotion'));
-		
-		$type = isset($_GET['type']) && in_array($_GET['type'], array('on_sale', 'coming', 'finished', 'self')) ? trim($_GET['type']) : '';
-		$promotion_list = $this->promotion_list($type);
-		$time = RC_Time::gmtime();
-		
-		$this->assign('promotion_list', $promotion_list);
-		$this->assign('type_count', $promotion_list['count']);
-		$this->assign('filter', $promotion_list['filter']);
-		
-		$this->assign('type', $type);
-		$this->assign('time', $time);
-		$this->assign('form_search', RC_Uri::url('promotion/admin/init'));
-		
-		$this->display('promotion_list.dwt');
-	}
 
-	/**
-	 * 添加促销商品
-	 */
-	public function add() {}
-	/**
-	 * 处理添加促销商品
-	 */
-	public function insert() {}
-	
-	/**
-	 * 编辑促销商品
-	 */
-	public function edit() {}
-	
-	/**
-	 * 更新促销商品
-	 */
-	public function update() {}
-	
-	/**
-	 * 删除促销商品
-	 */
-	public function remove() {
-		$this->admin_priv('promotion_delete', ecjia::MSGTYPE_JSON);
-		
-		$id = intval($_GET['id']);
-		$goods_name = RC_DB::table('goods')->where('goods_id', $id)->pluck('goods_name');
-		
-		//更新商品为非促销商品
-		RC_DB::table('goods')->where('goods_id', $id)->update(array('is_promote' => 0, 'promote_price' => 0, 'promote_start_date' => 0, 'promote_end_date' => 0));
-		
-		/* 释放app缓存*/
-		$orm_goods_db = RC_Model::model('goods/orm_goods_model');
-		$goods_cache_array = $orm_goods_db->get_cache_item('goods_list_cache_key_array');
-		if (!empty($goods_cache_array)) {
-			foreach ($goods_cache_array as $val) {
-				$orm_goods_db->delete_cache_item($val);
-			}
-			$orm_goods_db->delete_cache_item('goods_list_cache_key_array');
-		}
-		
-		ecjia_admin::admin_log($goods_name, 'remove', 'promotion');
+    /**
+     * 促销商品列表页
+     */
+    public function init()
+    {
+        $this->admin_priv('promotion_manage');
+
+        ecjia_screen::get_current_screen()->remove_last_nav_here();
+        ecjia_screen::get_current_screen()->add_nav_here(new admin_nav_here(__('促销商品', 'promotion')));
+
+        $this->assign('ur_here', __('促销商品列表', 'promotion'));
+
+        $type           = isset($_GET['type']) && in_array($_GET['type'], array('on_sale', 'coming', 'finished', 'self')) ? trim($_GET['type']) : '';
+        $promotion_list = $this->promotion_list($type);
+        $time           = RC_Time::gmtime();
+
+        $this->assign('promotion_list', $promotion_list);
+        $this->assign('type_count', $promotion_list['count']);
+        $this->assign('filter', $promotion_list['filter']);
+
+        $this->assign('type', $type);
+        $this->assign('time', $time);
+        $this->assign('form_search', RC_Uri::url('promotion/admin/init'));
+
+        $this->display('promotion_list.dwt');
+    }
+
+    /**
+     * 添加促销商品
+     */
+    public function add()
+    {
+    }
+
+    /**
+     * 处理添加促销商品
+     */
+    public function insert()
+    {
+    }
+
+    /**
+     * 编辑促销商品
+     */
+    public function edit()
+    {
+    }
+
+    /**
+     * 更新促销商品
+     */
+    public function update()
+    {
+    }
+
+    /**
+     * 删除促销商品
+     */
+    public function remove()
+    {
+        $this->admin_priv('promotion_delete', ecjia::MSGTYPE_JSON);
+
+        $id         = intval($_GET['id']);
+        $goods_name = RC_DB::table('goods')->where('goods_id', $id)->pluck('goods_name');
+
+        //更新商品为非促销商品
+        RC_DB::table('goods')->where('goods_id', $id)->update(array('is_promote' => 0, 'promote_price' => 0, 'promote_start_date' => 0, 'promote_end_date' => 0));
+
+        /* 释放app缓存*/
+        $orm_goods_db      = RC_Model::model('goods/orm_goods_model');
+        $goods_cache_array = $orm_goods_db->get_cache_item('goods_list_cache_key_array');
+        if (!empty($goods_cache_array)) {
+            foreach ($goods_cache_array as $val) {
+                $orm_goods_db->delete_cache_item($val);
+            }
+            $orm_goods_db->delete_cache_item('goods_list_cache_key_array');
+        }
+
+        ecjia_admin::admin_log($goods_name, 'remove', 'promotion');
 
         //清除应用缓存
         ecjia_update_cache::make()->clean('system_app_cache');
 
-		return $this->showmessage(__('删除成功', 'promotion'), ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_SUCCESS);
-	}
-	
-	/**
-	 * 添加/编辑页搜索商品
-	 */
-	public function search_goods() {}
-	
-	/**
-	 * 获取活动列表
-	 *
-	 * @access  public
-	 *
-	 * @return void
-	 */
-	private function promotion_list($type = '') {
-		$filter['keywords'] 			= empty($_GET['keywords']) 			? '' : stripslashes(trim($_GET['keywords']));
-		$filter['merchant_keywords'] 	= empty($_GET['merchant_keywords']) ? '' : stripslashes(trim($_GET['merchant_keywords']));
-		
-		$db_goods = RC_DB::table('goods as g')
-			->leftJoin('store_franchisee as s', RC_DB::raw('s.store_id'), '=', RC_DB::raw('g.store_id'));
-		
-		$db_goods->where('is_promote', '1')->where('is_delete', '!=', 1);
-		
-		if (!empty($filter['keywords'])) {
-			$db_goods->where('goods_name', 'like', '%'.mysql_like_quote($filter['keywords']).'%');
-		}
-		
-		if (!empty($filter['merchant_keywords'])) {
-			$db_goods->where(RC_DB::raw('s.merchants_name'), 'like', '%'.mysql_like_quote($filter['merchant_keywords']).'%');
-		}
-		
-		$time = RC_Time::gmtime();
-		$type_count = $db_goods->select(RC_DB::raw('count(*) as count'),
-				RC_DB::raw('SUM(IF(promote_start_date <'.$time.' and promote_end_date > '.$time.', 1, 0)) as on_sale'),
-				RC_DB::raw('SUM(IF(promote_start_date >'.$time.', 1, 0)) as coming'),
-				RC_DB::raw('SUM(IF(s.manage_mode = "self", 1, 0)) as self'),
-				RC_DB::raw('SUM(IF(promote_end_date <'.$time.', 1, 0)) as finished'))->first();
-		
-		if ($type == 'on_sale') {
-			$where['promote_start_date'] = array('elt' => $time);
-			$where['promote_end_date'] = array('egt' => $time);
-			
-			$db_goods->where('promote_start_date', '<=', $time)->where('promote_end_date', '>=', $time);
-		}
-		
-		if ($type == 'coming') {
-			$db_goods->where('promote_start_date', '>=', $time);
-		}
-		
-		if ($type == 'finished') {
-			$db_goods->where('promote_end_date', '<=', $time);
-		}
+        return $this->showmessage(__('删除成功', 'promotion'), ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_SUCCESS);
+    }
 
-		if ($type == 'self') {
-			$db_goods->where(RC_DB::raw('s.manage_mode'), 'self');
-		}
-		
-		$count = $db_goods->count();
-		$page = new ecjia_page($count, 10, 5);
-		
-		$result = $db_goods
-			->select('goods_id', 'goods_name', 'promote_price', 'promote_start_date', 'promote_end_date', 'goods_thumb', RC_DB::raw('s.merchants_name'))->take(10)->skip($page->start_id-1)->get();
-		
-		if (!empty($result)) {
-			$disk = RC_Filesystem::disk();
-			foreach ($result as $key => $val) {
-				$result[$key]['start_time'] = RC_Time::local_date('Y-m-d H:i:s', $val['promote_start_date']);
-				$result[$key]['end_time']   = RC_Time::local_date('Y-m-d H:i:s', $val['promote_end_date']);
-				if (!$disk->exists(RC_Upload::upload_path() . $val['goods_thumb']) || empty($val['goods_thumb'])) {
-					$result[$key]['goods_thumb'] = RC_Uri::admin_url('statics/images/nopic.png');
-				} else {
-					$result[$key]['goods_thumb'] = RC_Upload::upload_url() . '/' . $val['goods_thumb'];
-				}
-			}
-		}
-		return array('item' => $result, 'filter' => $filter, 'page' => $page->show(5), 'desc' => $page->page_desc(), 'count' => $type_count);
-	}
+    /**
+     * 添加/编辑页搜索商品
+     */
+    public function search_goods()
+    {
+    }
+
+    /**
+     * 获取活动列表
+     *
+     * @access  public
+     *
+     * @return void
+     */
+    private function promotion_list($type = '')
+    {
+        $filter['keywords']          = empty($_GET['keywords']) ? '' : stripslashes(trim($_GET['keywords']));
+        $filter['merchant_keywords'] = empty($_GET['merchant_keywords']) ? '' : stripslashes(trim($_GET['merchant_keywords']));
+
+        $db_goods = RC_DB::table('goods as g')
+            ->leftJoin('store_franchisee as s', RC_DB::raw('s.store_id'), '=', RC_DB::raw('g.store_id'));
+
+        $db_goods->where('is_promote', '1')->where('is_delete', '!=', 1);
+
+        if (!empty($filter['keywords'])) {
+            $db_goods->where('goods_name', 'like', '%' . mysql_like_quote($filter['keywords']) . '%');
+        }
+
+        if (!empty($filter['merchant_keywords'])) {
+            $db_goods->where(RC_DB::raw('s.merchants_name'), 'like', '%' . mysql_like_quote($filter['merchant_keywords']) . '%');
+        }
+
+        $time       = RC_Time::gmtime();
+        $type_count = $db_goods->select(RC_DB::raw('count(*) as count'),
+            RC_DB::raw('SUM(IF(promote_start_date <' . $time . ' and promote_end_date > ' . $time . ', 1, 0)) as on_sale'),
+            RC_DB::raw('SUM(IF(promote_start_date >' . $time . ', 1, 0)) as coming'),
+            RC_DB::raw('SUM(IF(s.manage_mode = "self", 1, 0)) as self'),
+            RC_DB::raw('SUM(IF(promote_end_date <' . $time . ', 1, 0)) as finished'))->first();
+
+        if ($type == 'on_sale') {
+            $where['promote_start_date'] = array('elt' => $time);
+            $where['promote_end_date']   = array('egt' => $time);
+
+            $db_goods->where('promote_start_date', '<=', $time)->where('promote_end_date', '>=', $time);
+        }
+
+        if ($type == 'coming') {
+            $db_goods->where('promote_start_date', '>=', $time);
+        }
+
+        if ($type == 'finished') {
+            $db_goods->where('promote_end_date', '<=', $time);
+        }
+
+        if ($type == 'self') {
+            $db_goods->where(RC_DB::raw('s.manage_mode'), 'self');
+        }
+
+        $count = $db_goods->count();
+        $page  = new ecjia_page($count, 10, 5);
+
+        $result = $db_goods
+            ->select('goods_id', 'goods_name', 'promote_price', 'promote_start_date', 'promote_end_date', 'goods_thumb', RC_DB::raw('s.merchants_name'))->take(10)->skip($page->start_id - 1)->get();
+
+        if (!empty($result)) {
+            $disk = RC_Filesystem::disk();
+            foreach ($result as $key => $val) {
+                $result[$key]['start_time'] = RC_Time::local_date('Y-m-d H:i:s', $val['promote_start_date']);
+                $result[$key]['end_time']   = RC_Time::local_date('Y-m-d H:i:s', $val['promote_end_date']);
+                if (!$disk->exists(RC_Upload::upload_path() . $val['goods_thumb']) || empty($val['goods_thumb'])) {
+                    $result[$key]['goods_thumb'] = RC_Uri::admin_url('statics/images/nopic.png');
+                } else {
+                    $result[$key]['goods_thumb'] = RC_Upload::upload_url() . '/' . $val['goods_thumb'];
+                }
+            }
+        }
+        return array('item' => $result, 'filter' => $filter, 'page' => $page->show(5), 'desc' => $page->page_desc(), 'count' => $type_count);
+    }
 }
 
 // end

@@ -161,10 +161,9 @@ class merchant extends ecjia_merchant
             return $this->showmessage(__('请输入一个有效的促销时间', 'promotion'), ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_ERROR);
         }
 
-        RC_DB::table('goods')->where('store_id', $_SESSION['store_id']);
-
         $time = RC_Time::gmtime();
         $info = RC_DB::table('goods')
+            ->where('store_id', $_SESSION['store_id'])
             ->where('is_promote', 1)
             ->where('goods_id', $goods_id)
             ->where('promote_start_date', '<=', $time)
@@ -176,7 +175,7 @@ class merchant extends ecjia_merchant
         }
 
         //商品信息
-        $goods_info = RC_DB::table('goods')->where('goods_id', $goods_id)->first();
+        $goods_info = RC_DB::table('goods')->where('store_id', $_SESSION['store_id'])->where('goods_id', $goods_id)->first();
 
         //查询该商品是否有货品
         $products = RC_DB::table('products')->where('goods_id', $goods_id)->get();
@@ -219,7 +218,7 @@ class merchant extends ecjia_merchant
                 'promote_start_date' => $start_time,
                 'promote_end_date'   => $end_time,
             );
-            RC_DB::table('goods')->where('goods_id', $goods_id)->update($result);
+            RC_DB::table('goods')->where('store_id', $_SESSION['store_id'])->where('goods_id', $goods_id)->update($result);
         } else {
             $promote_price        = is_numeric($_POST['promote_price']) ? floatval($_POST['promote_price']) : 0;
             $promote_limited      = intval($_POST['promote_limited']);
@@ -236,7 +235,7 @@ class merchant extends ecjia_merchant
                 'promote_limited'      => $promote_limited,
                 'promote_user_limited' => $promote_user_limited
             );
-            RC_DB::table('goods')->where('goods_id', $goods_id)->update($data);
+            RC_DB::table('goods')->where('store_id', $_SESSION['store_id'])->where('goods_id', $goods_id)->update($data);
         }
 
         /* 释放app缓存*/
@@ -311,9 +310,7 @@ class merchant extends ecjia_merchant
             return $this->showmessage(__('请输入一个有效的促销时间', 'promotion'), ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_ERROR);
         }
 
-        RC_DB::table('goods')->where('store_id', $_SESSION['store_id']);
-
-        $db = RC_DB::table('goods');
+        $db = RC_DB::table('goods')->where('store_id', $_SESSION['store_id']);
 
         if ($goods_id != $old_id) {
             $time = RC_Time::gmtime();
@@ -329,7 +326,7 @@ class merchant extends ecjia_merchant
         }
 
         //商品信息
-        $goods_info = RC_DB::table('goods')->where('goods_id', $goods_id)->first();
+        $goods_info = RC_DB::table('goods')->where('store_id', $_SESSION['store_id'])->where('goods_id', $goods_id)->first();
 
         //查询该商品是否有货品
         $products = RC_DB::table('products')->where('goods_id', $goods_id)->get();
@@ -382,7 +379,7 @@ class merchant extends ecjia_merchant
                 'promote_start_date' => $start_time,
                 'promote_end_date'   => $end_time,
             );
-            RC_DB::table('goods')->where('goods_id', $goods_id)->update($result);
+            RC_DB::table('goods')->where('store_id', $_SESSION['store_id'])->where('goods_id', $goods_id)->update($result);
         } else {
             $promote_price        = is_numeric($_POST['promote_price']) ? floatval($_POST['promote_price']) : 0;
             $promote_limited      = intval($_POST['promote_limited']);
@@ -399,7 +396,7 @@ class merchant extends ecjia_merchant
                 'promote_limited'      => $promote_limited,
                 'promote_user_limited' => $promote_user_limited
             );
-            RC_DB::table('goods')->where('goods_id', $goods_id)->update($data);
+            RC_DB::table('goods')->where('store_id', $_SESSION['store_id'])->where('goods_id', $goods_id)->update($data);
         }
 
         //更新原来的商品为非促销商品
@@ -412,7 +409,7 @@ class merchant extends ecjia_merchant
                 'promote_limited'      => 0,
                 'promote_user_limited' => 0
             );
-            RC_DB::table('goods')->where('goods_id', $old_id)->update($update_data);
+            RC_DB::table('goods')->where('store_id', $_SESSION['store_id'])->where('goods_id', $old_id)->update($update_data);
             RC_DB::table('products')->where('goods_id', $old_id)->update($update_data);
         }
 
@@ -455,7 +452,7 @@ class merchant extends ecjia_merchant
             'promote_limited'      => 0,
             'promote_user_limited' => 0
         );
-        RC_DB::table('goods')->where('goods_id', $id)->update($update_data);
+        RC_DB::table('goods')->where('store_id', $_SESSION['store_id'])->where('goods_id', $id)->update($update_data);
         RC_DB::table('products')->where('goods_id', $id)->update($update_data);
 
         /* 释放app缓存*/
@@ -528,7 +525,7 @@ class merchant extends ecjia_merchant
 
     private function get_goods_detail($goods_id = 0)
     {
-        $goods = RC_DB::table('goods')->where('goods_id', $goods_id)->first();
+        $goods = RC_DB::table('goods')->where('store_id', $_SESSION['store_id'])->where('goods_id', $goods_id)->first();
 
         $goods['goods_thumb']           = !empty($goods['goods_thumb']) && file_exists(RC_Upload::upload_path($goods['goods_thumb'])) ? RC_Upload::upload_url($goods['goods_thumb']) : RC_Uri::admin_url('statics/images/nopic.png');
         $goods['formated_shop_price']   = ecjia_price_format($goods['shop_price']);
@@ -579,10 +576,7 @@ class merchant extends ecjia_merchant
 
         $db_goods = RC_DB::table('goods as g');
 
-        $db_goods->where('is_promote', '1')->where('is_delete', '!=', 1);
-        if (!empty($_SESSION['store_id']) && $_SESSION['store_id'] > 0) {
-            $db_goods->where(RC_DB::raw('store_id'), $_SESSION['store_id']);
-        }
+        $db_goods->where('store_id', $_SESSION['store_id'])->where('is_promote', '1')->where('is_delete', '!=', 1);
 
         if (!empty($filter['keywords'])) {
             $db_goods->where('goods_name', 'like', '%' . mysql_like_quote($filter['keywords']) . '%');
