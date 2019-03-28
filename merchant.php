@@ -123,6 +123,15 @@ class merchant extends ecjia_merchant
 
         $this->assign('date', $date);
 
+        $goods_id = intval($_GET['id']);
+
+        if (!empty($goods_id)) {
+            $data = $this->get_goods_detail($goods_id);
+
+            $this->assign('goods', $data['goods']);
+            $this->assign('products', $data['products']);
+        }
+
         $this->assign('form_action', RC_Uri::url('promotion/merchant/insert'));
         $this->assign('search_action', RC_Uri::url('promotion/merchant/search_goods'));
 
@@ -266,6 +275,7 @@ class merchant extends ecjia_merchant
         $this->assign('action_link', array('href' => RC_Uri::url('promotion/merchant/init'), 'text' => __('促销商品列表', 'promotion')));
 
         $goods_id = intval($_GET['id']);
+        $this->assign('id', $goods_id);
 
         $data = $this->get_goods_detail($goods_id);
 

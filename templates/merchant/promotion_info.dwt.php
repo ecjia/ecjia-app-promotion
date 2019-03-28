@@ -25,7 +25,7 @@
         <section class="panel">
             <div class="panel-body">
                 <form class="form-horizontal" name="theForm" method="post" action="{$form_action}">
-                    {if $goods}
+                    {if $id}
                     <div class="form-group">
                         <label class="control-label col-lg-2">{t domain="promotion"}活动状态：{/t}</label>
                         <div class="col-lg-6 l_h30">
@@ -42,11 +42,11 @@
                         <div class="col-lg-6">
                             <div class="wright">
                                 <div class="wright_wleft">
-                                    <input class="form-control date" name="start_time" type="text" placeholder='{t domain="promotion"}请选择活动开始时间{/t}' value="{if $goods.promote_start_date}{$goods.promote_start_date}{else}{$date.sdate}{/if}"/>
+                                    <input class="form-control date" name="start_time" type="text" placeholder='{t domain="promotion"}请选择活动开始时间{/t}' value="{if $id}{$goods.promote_start_date}{else}{$date.sdate}{/if}"/>
                                 </div>
                                 <div class="wright_wcenter">{t domain="promotion"}至{/t}</div>
                                 <div class="wright_wleft">
-                                    <input class="form-control date" name="end_time" type="text" placeholder='{t domain="promotion"}请选择活动结束时间{/t}' value="{if $goods.promote_end_date}{$goods.promote_end_date}{else}{$date.edate}{/if}"/>
+                                    <input class="form-control date" name="end_time" type="text" placeholder='{t domain="promotion"}请选择活动结束时间{/t}' value="{if $id}{$goods.promote_end_date}{else}{$date.edate}{/if}"/>
                                 </div>
                             </div>
                             <div class="help-block">{t domain="promotion"}活动到期后将自动失效时间精确到：分{/t}</div>
@@ -78,7 +78,7 @@
                     <div class="form-group">
                         <div class="col-lg-offset-2 col-lg-6">
                             <input type="hidden" name="id" value="{$goods.goods_id}"/>
-                            <!-- {if $goods.goods_id} -->
+                            <!-- {if $id} -->
                             <input type="hidden" name="old_id" value="{$goods.goods_id}"/>
                             <input type="submit" value='{t domain="promotion"}更新{/t}' class="btn btn-info"/>
                             <!-- {else} -->
