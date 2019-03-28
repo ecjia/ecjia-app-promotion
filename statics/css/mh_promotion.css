@@ -61,6 +61,12 @@
     margin: 10px;
 }
 
+.goods-content.overflow {
+    width: 100%;
+    overflow: hidden;
+    padding-top: 10px;
+}
+
 .goods-content .goods-info {
     width: 100%;
 }
@@ -68,6 +74,16 @@
 .goods-content .goods-info.m_b10 {
     margin-bottom: 10px;
     height: 80px;
+}
+
+.goods-content .goods-info.border-bottom {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 15px;
+}
+
+.goods-content .goods-info.border-bottom:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
 }
 
 .goods-content .left {
@@ -97,6 +113,10 @@
     font-size: 15px;
     font-weight: 600;
     margin-bottom: 5px;
+}
+
+.goods-content .right .name.p_t5 {
+    padding-top: 5px;
 }
 
 .spec-label {
@@ -131,6 +151,10 @@
     color: #838383;
 }
 
+.goods-content .right .goods_sn.m_t15 {
+    margin-top: 15px;
+}
+
 .goods-content .product-info .title {
     width: 100%;
     line-height: 40px;
@@ -153,6 +177,10 @@
     color: #838383;
     border-radius: 4px;
     font-size: 12px;
+}
+
+.goods-temp-info .notice.m_t0 {
+    margin-top: 0;
 }
 
 .goods-temp-info .notice p:last-child {
@@ -199,6 +227,10 @@
     margin: 20px 0 10px 0;
 }
 
+.border-dashed.m_b20 {
+    margin-bottom: 20px;
+}
+
 .promote-status {
     color: #fff;
     border-radius: 5px;
@@ -235,6 +267,67 @@
     color: #838383;
 }
 
-.table-striped>tbody.tbody-products>tr:nth-child(odd)>td {
+.table-striped > tbody.tbody-products > tr:nth-child(odd) > td {
     background-color: #f9f9f9;
+}
+
+.admin-promotion-detail .form-horizontal .control-label {
+    width: 100px;
+}
+
+.admin-promotion-detail .form-horizontal .controls {
+    margin-left: 120px;
+}
+
+.merchants_info .logo-info {
+    height: 100px;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 10px;
+}
+
+.merchants_info .logo-info img {
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    float: left;
+}
+
+.merchants_info .logo-info .info {
+    margin-left: 100px;
+}
+
+.merchants_info .logo-info .info .name {
+    padding-top: 10px;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.merchants_info .logo-info .info .self-mode {
+    margin-top: 7px;
+    color: #ff3434;
+    border-radius: 5px;
+    padding: 4px 10px;
+    display: inline-block;
+    background-color: #FDE0E0;
+    font-size: 15px;
+}
+
+.merchants_info .other-info {
+    line-height: 20px;
+}
+
+.merchants_info .other-info label {
+    float: left;
+}
+
+.merchants_info .other-info .content {
+    margin-left: 70px;
+}
+
+.merchants_info .other-info .info-item {
+    margin-bottom: 10px;
+}
+
+.admin-promotion-detail .view-more {
+    margin: 15px 0 0 15px;
 }

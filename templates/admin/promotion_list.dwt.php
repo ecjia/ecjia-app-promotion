@@ -3,6 +3,7 @@
 
 <!-- {block name="footer"} -->
 <script type="text/javascript">
+    ecjia.admin.sidebar.click();
     ecjia.admin.promotion_list.init();
 </script>
 <!-- {/block} -->
@@ -18,7 +19,7 @@
 </div>
 <ul class="nav nav-pills">
     <li class="{if !$type || $type eq 'on_sale'}active{/if}">
-        <a class="data-pjax" href='{url path="promotion/admin/init" args="type=on_sale{if $filter.merchant_keywords}&merchant_keywords={$filter.merchant_keywords}{/if}{if $filter.keywords}&keywords={$filter.keywords}{/if}"}'>
+        <a class="data-pjax" href='{url path="promotion/admin/init" args="{if $filter.merchant_keywords}&merchant_keywords={$filter.merchant_keywords}{/if}{if $filter.keywords}&keywords={$filter.keywords}{/if}"}'>
             {t domain="promotion"}进行中{/t}<span class="badge badge-info">{if $type_count.on_sale}{$type_count.on_sale}{else}0{/if}</span>
         </a>
     </li>
@@ -34,7 +35,7 @@
     </li>
 
     <li class="ecjiaf-fn">
-        <form name="searchForm" method="post" action="{$form_search}{if $type}&type={$type}{/if}">
+        <form name="searchForm" method="post" action="{$form_search}{if $smarty.get.type}&type={$smarty.get.type}{/if}">
             <div class="f_r form-inline">
                 <input type="text" class="w180" name="merchant_keywords" value="{$smarty.get.merchant_keywords}" placeholder='{t domain="promotion"}请输入商家名称关键字{/t}'/>
                 <input type="text" class="w180" name="keywords" value="{$smarty.get.keywords}" placeholder='{t domain="promotion"}请输入商品名称关键字{/t}'/>
@@ -73,7 +74,7 @@
                         </div>
                         <div class="goods_sn">{t domain="promotion"}货号：{/t}{$item.goods_sn}</div>
                         <div class="edit-list">
-                            <a class="data-pjax" href='{RC_Uri::url("promotion/admin/detail", "id={$item.goods_id}")}' title='{t domain="promotion"}查看详情{/t}'>{t domain="promotion"}查看详情{/t}</a>
+                            <a href='{RC_Uri::url("promotion/admin/detail", "id={$item.goods_id}")}' title='{t domain="promotion"}查看详情{/t}'>{t domain="promotion"}查看详情{/t}</a>
                         </div>
                     </div>
                 </td>

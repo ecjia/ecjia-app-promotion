@@ -49,7 +49,7 @@
                                     <input class="form-control date" name="end_time" type="text" placeholder='{t domain="promotion"}请选择活动结束时间{/t}' value="{if $id}{$goods.promote_end_date}{else}{$date.edate}{/if}"/>
                                 </div>
                             </div>
-                            <div class="help-block">{t domain="promotion"}活动到期后将自动失效时间精确到：分{/t}</div>
+                            <div class="help-block">{t domain="promotion"}活动到期后将自动失效，时间精确到：分{/t}</div>
                         </div>
                         <span class="input-must">*</span>
                     </div>

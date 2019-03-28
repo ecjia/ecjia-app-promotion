@@ -1,7 +1,7 @@
 <div class="goods-temp-info">
     <div class="notice">
         <p>{t domain="promotion"}注：1、限购总数量：限制商品参与活动的总数量，此设置不能高于商品（SPU/SKU）总库存；{/t}</p>
-        <p>{t domain="promotion"}2、每人限购：限制每个会员购买活动商品的数量，此设置不能高于商品（SPU/SKU）总库存，默认0代表不设置；{/t}</p>
+        <p>{t domain="promotion"}2、每人限购：限制每个会员购买活动商品的数量，此设置不能高于限购总数量，默认0代表不设置；{/t}</p>
         <p>{t domain="promotion"}3、活动价：设置商品（SPU/SKU）活动价格，此设置不能高于商品（SPU/SKU）原价；{/t}</p>
     </div>
 

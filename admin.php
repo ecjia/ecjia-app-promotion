@@ -57,6 +57,8 @@ class admin extends ecjia_admin
 
         Ecjia\App\Promotion\Helper::assign_adminlog_content();
 
+        RC_Loader::load_app_func('merchant_goods', 'goods');
+
         RC_Script::enqueue_script('jquery-validate');
         RC_Script::enqueue_script('jquery-form');
         RC_Script::enqueue_script('smoke');
@@ -86,6 +88,7 @@ class admin extends ecjia_admin
 
         ecjia_screen::get_current_screen()->remove_last_nav_here();
         ecjia_screen::get_current_screen()->add_nav_here(new admin_nav_here(__('促销活动', 'promotion')));
+        ecjia_screen::get_current_screen()->set_sidebar_display(true);
 
         $this->assign('ur_here', __('促销活动列表', 'promotion'));
 
@@ -108,44 +111,129 @@ class admin extends ecjia_admin
     public function detail()
     {
         $this->admin_priv('promotion_manage');
-    }
 
-    /**
-     * 删除促销活动
-     */
-    public function remove()
-    {
-        $this->admin_priv('promotion_delete', ecjia::MSGTYPE_JSON);
+        ecjia_screen::get_current_screen()->add_nav_here(new admin_nav_here(__('查看促销活动', 'promotion')));
+        ecjia_screen::get_current_screen()->set_sidebar_display(false);
 
-        $id         = intval($_GET['id']);
-        $goods_name = RC_DB::table('goods')->where('goods_id', $id)->pluck('goods_name');
+        $this->assign('ur_here', __('查看促销活动', 'promotion'));
+        $this->assign('action_link', array('href' => RC_Uri::url('promotion/admin/init'), 'text' => __('促销活动列表', 'promotion')));
 
-        //更新商品为非促销活动
-        RC_DB::table('goods')->where('goods_id', $id)->update(array('is_promote' => 0, 'promote_price' => 0, 'promote_start_date' => 0, 'promote_end_date' => 0));
+        $goods_id = intval($_GET['id']);
+        $this->assign('id', $goods_id);
 
-        /* 释放app缓存*/
-        $orm_goods_db      = RC_Model::model('goods/orm_goods_model');
-        $goods_cache_array = $orm_goods_db->get_cache_item('goods_list_cache_key_array');
-        if (!empty($goods_cache_array)) {
-            foreach ($goods_cache_array as $val) {
-                $orm_goods_db->delete_cache_item($val);
+        $data = $this->get_goods_detail($goods_id);
+
+        $this->assign('goods', $data['goods']);
+        $this->assign('products', $data['products']);
+        $this->assign('shop', $data['shop_info']);
+
+        $merchant_cat = merchant_cat_list(0, 0, true, 2); //店铺分类
+        $this->assign('merchant_cat', $merchant_cat);
+
+        //其他促销
+        $result = [];
+        $count  = RC_DB::table('goods')->where('store_id', $data['shop_info']['store_id'])->where('is_promote', 1)->count();
+        if ($count != 0) {
+            $result = RC_DB::table('goods')
+                ->select('goods_sn', 'goods_name', 'promote_price', 'market_price', 'goods_thumb', 'promote_start_date')
+                ->where('store_id', $data['shop_info']['store_id'])
+                ->where('is_promote', 1)
+                ->orderBy('promote_start_date', 'desc')
+                ->take(3)
+                ->get();
+
+            if (!empty($result)) {
+                $disk = RC_Filesystem::disk();
+                foreach ($result as $key => $val) {
+                    if (!$disk->exists(RC_Upload::upload_path() . $val['goods_thumb']) || empty($val['goods_thumb'])) {
+                        $result[$key]['goods_thumb'] = RC_Uri::admin_url('statics/images/nopic.png');
+                    } else {
+                        $result[$key]['goods_thumb'] = RC_Upload::upload_url() . '/' . $val['goods_thumb'];
+                    }
+                    $result[$key]['formated_promote_price'] = ecjia_price_format($val['promote_price'], 2);
+                    $result[$key]['formated_market_price']  = ecjia_price_format($val['market_price'], 2);
+
+                    $products = RC_DB::table('products')->where('goods_id', $val['goods_id'])->where('is_promote', 1)->get();
+                    if (!empty($products)) {
+                        foreach ($products as $k => $v) {
+                            if ($k == 0) {
+                                $result[$key]['formated_promote_price'] = ecjia_price_format($v['promote_price'], 2); //取第一件货品的促销价格
+                            }
+                        }
+                    }
+                    $result[$key]['products'] = $products;
+                }
             }
-            $orm_goods_db->delete_cache_item('goods_list_cache_key_array');
         }
 
-        ecjia_admin::admin_log($goods_name, 'remove', 'promotion');
+        $this->assign('count', $count);
+        $this->assign('result', $result);
 
-        //清除应用缓存
-        ecjia_update_cache::make()->clean('system_app_cache');
-
-        return $this->showmessage(__('删除成功', 'promotion'), ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_SUCCESS);
+        $this->display('promotion_detail.dwt');
     }
 
-    /**
-     * 添加/编辑页搜索商品
-     */
-    public function search_goods()
+    private function get_goods_detail($goods_id = 0)
     {
+        $goods = RC_DB::table('goods')->where('goods_id', $goods_id)->first();
+
+        $goods['goods_thumb']           = !empty($goods['goods_thumb']) && file_exists(RC_Upload::upload_path($goods['goods_thumb'])) ? RC_Upload::upload_url($goods['goods_thumb']) : RC_Uri::admin_url('statics/images/nopic.png');
+        $goods['formated_shop_price']   = ecjia_price_format($goods['shop_price']);
+        $goods['formated_market_price'] = ecjia_price_format($goods['market_price']);
+
+
+        $time = RC_Time::gmtime();
+        if ($goods['promote_start_date'] < $time && $goods['promote_end_date'] > $time) {
+            $goods['promote_status']       = 'on_sale';
+            $goods['promote_status_label'] = __('进行中', 'promotion');
+        } elseif ($goods['promote_start_date'] > $time) {
+            $goods['promote_status']       = 'coming';
+            $goods['promote_status_label'] = __('即将开始', 'promotion');
+        } elseif ($goods['promote_end_date'] < $time) {
+            $goods['promote_status']       = 'finished';
+            $goods['promote_status_label'] = __('已结束', 'promotion');
+        }
+
+        $goods['promote_start_date'] = RC_Time::local_date('Y-m-d H:i', $goods['promote_start_date']);
+        $goods['promote_end_date']   = RC_Time::local_date('Y-m-d H:i', $goods['promote_end_date']);
+
+        $products = RC_DB::table('products')->where('goods_id', $goods_id)->get();
+        if (!empty($products)) {
+            foreach ($products as $k => $v) {
+                $goods_attr                 = explode('|', $v['goods_attr']);
+                $attr_value                 = RC_DB::table('goods_attr')->where('goods_id', $goods_id)->whereIn('goods_attr_id', $goods_attr)->lists('attr_value');
+                $attr_value                 = is_array($attr_value) ? implode(' / ', $attr_value) : $attr_value;
+                $products[$k]['attr_value'] = $attr_value;
+            }
+        }
+
+        $shop_info = RC_api::api('store', 'store_info', array('store_id' => $goods['store_id']));
+
+        $trade_time = '暂未设置';
+
+        if (!empty($shop_info['shop_trade_time'])) {
+            $trade_time = unserialize($shop_info['shop_trade_time']);
+
+            $sart_time = $trade_time['start'];
+            $end_time  = explode(':', $trade_time['end']);
+            if ($end_time[0] >= 24) {
+                $end_time[0] = '次日' . ($end_time[0] - 24);
+            }
+            $trade_time = $sart_time . '-' . $end_time[0] . ':' . $end_time[1];
+        }
+        $shop_info['trade_time'] = $trade_time;
+        $shop_info['address']    = ecjia_region::getRegionName($shop_info['province']) .
+            ecjia_region::getRegionName($shop_info['city']) .
+            ecjia_region::getRegionName($shop_info['district']) .
+            ecjia_region::getRegionName($shop_info['street']) .
+            $shop_info['address'];
+
+        $shop_info['shop_logo'] = !empty($shop_info['shop_logo']) ? RC_Upload::upload_url($shop_info['shop_logo']) : RC_Uri::admin_url('statics/images/nopic.png');
+
+        return array(
+            'goods'     => $goods,
+            'products'  => $products,
+            'shop_info' => $shop_info
+        );
     }
 
     /**
@@ -181,9 +269,6 @@ class admin extends ecjia_admin
             RC_DB::raw('SUM(IF(promote_end_date <' . $time . ', 1, 0)) as finished'))->first();
 
         if ($type == 'on_sale') {
-            $where['promote_start_date'] = array('elt' => $time);
-            $where['promote_end_date']   = array('egt' => $time);
-
             $db_goods->where(RC_DB::raw('g.promote_start_date'), '<=', $time)->where('promote_end_date', '>=', $time);
         }
 

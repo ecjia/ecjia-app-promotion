@@ -27,7 +27,7 @@
             <div class="panel-body panel-body-small">
                 <ul class="nav nav-pills pull-left">
                     <li class="{if $type eq 'on_sale'}active{/if}">
-                        <a class="data-pjax" href='{url path="promotion/merchant/init" args="type=on_sale{if $filter.merchant_keywords}&merchant_keywords={$filter.merchant_keywords}{/if}{if $filter.keywords}&keywords={$filter.keywords}{/if}"}'>{t domain="promotion"}正在进行中{/t}<span class="badge badge-info">{if $type_count.on_sale}{$type_count.on_sale}{else}0{/if}</span>
+                        <a class="data-pjax" href='{url path="promotion/merchant/init" args="{if $filter.merchant_keywords}&merchant_keywords={$filter.merchant_keywords}{/if}{if $filter.keywords}&keywords={$filter.keywords}{/if}"}'>{t domain="promotion"}正在进行中{/t}<span class="badge badge-info">{if $type_count.on_sale}{$type_count.on_sale}{else}0{/if}</span>
                         </a>
                     </li>
                     <li class="{if $type eq 'coming'}active{/if}">
@@ -39,7 +39,7 @@
                         </a>
                     </li>
                 </ul>
-                <form class="form-inline pull-right" name="searchForm" method="post" action="{$form_search}{if $type}&type={$type}{/if}">
+                <form class="form-inline pull-right" name="searchForm" method="post" action="{$form_search}{if $smarty.get.type}&type={$smarty.get.type}{/if}">
                     <div class="form-group">
                         <!-- 关键字 -->
                         <input type="text" class="form-control" name="keywords" value="{$smarty.get.keywords}" placeholder="{t domain=" promotion"}请输入商品名称关键字{/t}"/>
