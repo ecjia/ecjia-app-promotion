@@ -169,6 +169,25 @@ class admin extends ecjia_admin
         $this->assign('count', $count);
         $this->assign('result', $result);
 
+        $action = $_SESSION['action_list'] == 'all' ? true : false;
+        $this->assign('action', $action);
+
+        if ($action) {
+            if (defined('RC_SITE')) {
+                $index = 'sites/' . RC_SITE . '/index.php';
+            } else {
+                $index = 'index.php';
+            }
+            $edit_url = RC_Uri::url('promotion/merchant/edit', array('id' => $goods_id));
+            $edit_url = str_replace($index, "sites/merchant/index.php", $edit_url);
+
+            $this->assign('edit_url', urlencode($edit_url));
+
+            $list_url = RC_Uri::url('promotion/merchant/init');
+            $list_url = str_replace($index, "sites/merchant/index.php", $list_url);
+            $this->assign('list_url', urlencode($list_url));
+        }
+
         $this->display('promotion_detail.dwt');
     }
 
@@ -234,6 +253,35 @@ class admin extends ecjia_admin
             'products'  => $products,
             'shop_info' => $shop_info
         );
+    }
+
+    //登录到商家促销活动页
+    public function autologin()
+    {
+        $store_id     = intval($_GET['store_id']);
+        $redirect_url = urlencode($_GET['url']);
+
+        if ($_SESSION['action_list'] == 'all') {
+            $cookie_name    = RC_Config::get('session.session_admin_name');
+            $authcode_array = array(
+                'admin_token' => RC_Cookie::get($cookie_name),
+                'store_id'    => $store_id,
+                'time'        => RC_Time::gmtime(),
+            );
+            $authcode_str   = http_build_query($authcode_array);
+            $authcode       = RC_Crypt::encrypt($authcode_str);
+
+            if (defined('RC_SITE')) {
+                $index = 'sites/' . RC_SITE . '/index.php';
+            } else {
+                $index = 'index.php';
+            }
+
+            $url = str_replace($index, "sites/merchant/index.php", RC_Uri::url('staff/privilege/autologin')) . '&authcode=' . $authcode;
+
+            $url .= '&redirect_url=' . $redirect_url;
+            return $this->redirect($url);
+        }
     }
 
     /**

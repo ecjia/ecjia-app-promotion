@@ -168,11 +168,13 @@
                     </div>
                 </div>
 
+                {if $action}
                 <div class="control-group">
                     <div class="controls">
-                        <a class="btn btn-gebo" href="">去修改</a>
+                        <a class="btn btn-gebo" target="_blank" href="{RC_Uri::url('promotion/admin/autologin')}&store_id={$goods.store_id}&url={$edit_url}">去修改</a>
                     </div>
                 </div>
+                {/if}
             </div>
         </div>
 
@@ -225,28 +227,30 @@
                     <div class="accordion-body in in_visable collapse" id="area_one">
                         <div class="accordion-inner">
                             <div class="goods-content">
-                                {foreach from=$result item=goods}
+                                {foreach from=$result item=val}
                                 <div class="goods-info m_b10 border-bottom">
                                     <div class="left">
-                                        <img src="{$goods.goods_thumb}" alt="">
+                                        <img src="{$val.goods_thumb}" alt="">
                                     </div>
                                     <div class="right">
                                         <div class="name p_t5">
-                                            {if $goods.products}
+                                            {if $val.products}
                                             <span class="spec-label">{t domain="promotion"}多规格{/t}</span>
                                             {/if}
-                                            {$goods.goods_name}
+                                            {$val.goods_name}
                                         </div>
-                                        <div class="goods_sn m_t15">{t domain="promotion"}货号：{/t}{$goods.goods_sn}</div>
+                                        <div class="goods_sn m_t15">{t domain="promotion"}货号：{/t}{$val.goods_sn}</div>
                                         <div class="info">
-                                            <span class="market_price">{t domain="promotion"}促销价：{/t}{$goods.formated_promote_price} <del class="ecjiaf-fr">{$goods.formated_market_price}</del></span>
+                                            <span class="market_price">{t domain="promotion"}促销价：{/t}{$val.formated_promote_price} <del class="ecjiaf-fr">{$val.formated_market_price}</del></span>
                                         </div>
                                     </div>
                                 </div>
                                 {/foreach}
                             </div>
-                            {if $count gt 3}
-                            <div class="view-more"><a href="">查看更多>></a></div>
+                            {if $count gt 3 && $action}
+                            <div class="view-more">
+                                <a target="_blank" href="{RC_Uri::url('promotion/admin/autologin')}&store_id={$goods.store_id}&url={$list_url}">查看更多>></a>
+                            </div>
                             {/if}
                         </div>
                     </div>
