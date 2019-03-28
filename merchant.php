@@ -607,7 +607,7 @@ class merchant extends ecjia_merchant
         $page  = new ecjia_merchant_page($count, 10, 5);
 
         $result = $db_goods
-            ->select('goods_id', 'goods_name', 'promote_price', 'promote_start_date', 'promote_end_date', 'goods_thumb')
+            ->select('goods_id', 'goods_sn', 'goods_name', 'promote_price', 'promote_start_date', 'promote_end_date', 'goods_thumb', 'promote_limited', 'promote_user_limited')
             ->take(10)
             ->skip($page->start_id - 1)
             ->get();
@@ -623,7 +623,22 @@ class merchant extends ecjia_merchant
                 } else {
                     $result[$key]['goods_thumb'] = RC_Upload::upload_url() . '/' . $val['goods_thumb'];
                 }
-                $result[$key]['promote_price'] = ecjia_price_format($val['promote_price'], 2);
+                $result[$key]['formated_promote_price'] = ecjia_price_format($val['promote_price'], 2);
+
+                $products = RC_DB::table('products')->where('goods_id', $val['goods_id'])->where('is_promote', 1)->get();
+                if (!empty($products)) {
+                    foreach ($products as $k => $v) {
+                        $goods_attr                             = explode('|', $v['goods_attr']);
+                        $attr_value                             = RC_DB::table('goods_attr')->where('goods_id', $val['goods_id'])->whereIn('goods_attr_id', $goods_attr)->lists('attr_value');
+                        $attr_value                             = is_array($attr_value) ? implode(' / ', $attr_value) : $attr_value;
+                        $products[$k]['attr_value']             = $attr_value;
+                        $products[$k]['formated_promote_price'] = ecjia_price_format($v['promote_price'], 2);
+                    }
+                    $result[$key]['range_label'] = __('货品促销', 'promotion');
+                } else {
+                    $result[$key]['range_label'] = __('商品促销', 'promotion');
+                }
+                $result[$key]['products'] = $products;
             }
         }
         return array('item' => $result, 'filter' => $filter, 'page' => $page->show(2), 'desc' => $page->page_desc(), 'count' => $type_count);

@@ -3,6 +3,7 @@
     app.promotion_list = {
         init: function () {
             app.promotion_list.search();
+            app.promotion_list.show_product();
         },
         search: function () {
             $("form[name='searchForm']").on('submit', function (e) {
@@ -19,6 +20,21 @@
                     url += '&keywords=' + keywords;
                 }
                 ecjia.pjax(url);
+            });
+        },
+        show_product: function () {
+            $('[data-toggle="show_products"]').off('click').on('click', function () {
+                var $this = $(this),
+                    id = $this.attr('data-id'),
+                    td = $('.td-product-' + id);
+
+                if (td.hasClass('hide')) {
+                    td.removeClass('hide');
+                    $this.removeClass('fa-caret-down').addClass('fa-caret-up');
+                } else {
+                    td.addClass('hide');
+                    $this.removeClass('fa-caret-up').addClass('fa-caret-down');
+                }
             });
         }
     }

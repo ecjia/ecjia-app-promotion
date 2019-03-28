@@ -12,7 +12,7 @@
                 <img src="{$goods.goods_thumb}" alt="">
             </div>
             <div class="right">
-                <div class="name"> <span class="spec">{t domain="promotion"}多规格{/t}</span> {$goods.goods_name}</div>
+                <div class="name"> <span class="spec-label">{t domain="promotion"}多规格{/t}</span> {$goods.goods_name}</div>
                 <div class="goods_sn">{t domain="promotion"}货号：{/t}{$goods.goods_sn}</div>
                 <div class="info">
                     <span class="price">{$goods.formated_shop_price}</span>

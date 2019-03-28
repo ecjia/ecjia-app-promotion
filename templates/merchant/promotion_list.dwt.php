@@ -54,32 +54,48 @@
                     <table class="table table-striped table-hover table-hide-edit">
                         <thead>
                             <tr>
-                                <th class="">{t domain="promotion"}活动商品（SPU/SKU）{/t}</th>
+                                <th class="w350">{t domain="promotion"}活动商品（SPU/SKU）{/t}</th>
                                 <th>{t domain="promotion"}活动范围{/t}</th>
-                                <th class="w100">{t domain="promotion"}限购总数{/t}</th>
-                                <th class="w100">{t domain="promotion"}每人限购{/t}</th>
+                                <th class="w80">{t domain="promotion"}限购总数{/t}</th>
+                                <th class="w80">{t domain="promotion"}每人限购{/t}</th>
                                 <th class="w100">{t domain="promotion"}活动价{/t}</th>
                                 {if $type eq 'coming'}
-                                <th class="w200">{t domain="promotion"}开始时间{/t}</th>
+                                <th class="w150">{t domain="promotion"}开始时间{/t}</th>
                                 {else}
-                                <th class="w200">{t domain="promotion"}结束时间{/t}</th>
+                                <th class="w150">{t domain="promotion"}结束时间{/t}</th>
                                 {/if}
                                 <th class="w100">{t domain="promotion"}活动状态{/t}</th>
+                                <th class="w50"></th>
                             </tr>
                         </thead>
                         <!-- {foreach from=$promotion_list.item item=item key=key} -->
                         <tr>
                             <td class="hide-edit-area">
-                                <div>{$item.goods_name}</div>
-                                <div class="edit-list">
-                                    <a class="data-pjax" href='{RC_Uri::url("promotion/merchant/edit", "id={$item.goods_id}")}' title='{t domain="promotion"}编辑{/t}'>{t domain="promotion"}编辑{/t}</a>&nbsp;|&nbsp;
-                                    <a data-toggle="ajaxremove" class="ajaxremove ecjiafc-red" data-msg='{t domain="promotion"}您确定要删除该促销活动吗？{/t}' href='{RC_Uri::url("promotion/merchant/remove", "id={$item.goods_id}")}' title='{t domain="promotion"}删除{/t}'>{t domain="promotion"}删除{/t}</a>
+                                <img class="ecjiaf-fl" src="{$item.goods_thumb}" width="60" height="60">
+                                <div class="area-item">
+                                    <div>{if $item.products}<span class="spec-label">{t domain="promotion"}多规格{/t}</span>{/if}{$item.goods_name}
+                                    </div>
+                                    <div class="goods_sn">{t domain="promotion"}货号：{/t}{$item.goods_sn}</div>
+                                    <div class="edit-list">
+                                        <a class="data-pjax" href='{RC_Uri::url("promotion/merchant/edit", "id={$item.goods_id}")}' title='{t domain="promotion"}编辑{/t}'>{t domain="promotion"}编辑{/t}</a>&nbsp;|&nbsp;
+                                        <a data-toggle="ajaxremove" class="ajaxremove ecjiafc-red" data-msg='{t domain="promotion"}您确定要删除该促销活动吗？{/t}' href='{RC_Uri::url("promotion/merchant/remove", "id={$item.goods_id}")}' title='{t domain="promotion"}删除{/t}'>{t domain="promotion"}删除{/t}</a>
+                                    </div>
                                 </div>
                             </td>
+
+                            <td>{$item.range_label}</td>
+
+                            {if $item.products}
                             <td></td>
-                            <td>{$item.limit_total}</td>
-                            <td>{$item.limit_num}</td>
-                            <td>{$item.promote_price}</td>
+                            <td></td>
+                            <td></td>
+                            {else}
+
+                            <td>{$item.promote_limited}</td>
+                            <td>{$item.promote_user_limited}</td>
+                            <td>{$item.formated_promote_price}</td>
+                            {/if}
+
                             {if $type eq 'coming'}
                             <td>{$item.start_time}</td>
                             {else}
@@ -94,10 +110,41 @@
                                 <span class="finished_status">{t domain="promotion"}已结束{/t}</span>
                                 {/if}
                             </td>
+
+                            <td>
+                                {if $item.products}
+                                <i class="fa fa-caret-down cursor_pointer" data-toggle="show_products" data-id="{$item.goods_id}"></i>
+                                {/if}
+                            </td>
                         </tr>
+                        <!-- {if $item.products} -->
+                        <tbody class="border-none td-product-{$item.goods_id} hide">
+                            <!-- {foreach from=$item.products item=val} -->
+                            <tr>
+                                <td>
+                                    <div class="area-item">
+                                        <img class="ecjiaf-fl" src="{$item.goods_thumb}" width="60" height="60">
+                                        <div class="area-item-content">
+                                            <div class="attr">{$val.attr_value}</div>
+                                            <div class="sn">{t domain="promotion"}货号：{/t}{$val.product_sn}</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td></td>
+                                <td>{$val.promote_limited}</td>
+                                <td>{$val.promote_user_limited}</td>
+                                <td>{$val.formated_promote_price}</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <!-- {/foreach} -->
+                        </tbody>
+                        <!-- {/if} -->
+
                         <!-- {foreachelse} -->
                         <tr>
-                            <td class="no-records" colspan="7">{t domain="promotion"}没有找到任何记录{/t}</td>
+                            <td class="no-records" colspan="8">{t domain="promotion"}没有找到任何记录{/t}</td>
                         </tr>
                         <!-- {/foreach} -->
                     </table>

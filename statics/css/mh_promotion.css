@@ -99,7 +99,7 @@
     margin-bottom: 5px;
 }
 
-.goods-content .right .name .spec {
+.spec-label {
     border-radius: 5px;
     padding: 3px 5px;
     background-color: #FFDFCA;
@@ -107,6 +107,7 @@
     font-size: 14px;
     font-weight: normal;
     border: 1px solid #FE9550;
+    margin-right: 5px;
 }
 
 .goods-content .right .goods_sn,
@@ -214,4 +215,26 @@
 
 .promote-status.finished {
     background-color: #04AA04;
+}
+
+.area-item {
+    margin-left: 70px;
+}
+
+.area-item .goods_sn {
+    margin-top: 5px;
+    color: #838383;
+}
+
+.area-item-content {
+    margin-left: 70px;
+}
+
+.area-item-content .sn {
+    margin-top: 10px;
+    color: #838383;
+}
+
+.table-striped>tbody.tbody-products>tr:nth-child(odd)>td {
+    background-color: #f9f9f9;
 }
