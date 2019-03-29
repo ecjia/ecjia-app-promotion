@@ -18,7 +18,7 @@
 
     {if $products}
     <div class="product-info">
-        <div class="title">{t domain="promotion"}属性SKU{/t}</div>
+        <div class="title">{t domain="promotion"}货品SKU{/t}</div>
         {foreach from=$products item=val}
         <div class="goods-info m_b10">
             <div class="left">
@@ -26,7 +26,9 @@
             </div>
             <div class="right">
                 <div class="name">{$val.attr_value}</div>
-                <div class="goods_sn">{t domain="promotion"}货号：{/t}{$val.product_sn} <span class="m_l20 goods_number">{t domain="promotion"}条形码：{/t}</span></div>
+                <div class="goods_sn">{t domain="promotion"}货号：{/t}{$val.product_sn}
+<!--                    <span class="m_l20 goods_number">{t domain="promotion"}条形码：{/t}</span>-->
+                </div>
                 <div class="info">
                     <span class="price">{$goods.formated_shop_price}</span>
                     <span class="goods_number">{t domain="promotion"}库存：{/t}{$val.product_number}</span>

@@ -19,17 +19,17 @@
 </div>
 <ul class="nav nav-pills">
     <li class="{if !$type || $type eq 'on_sale'}active{/if}">
-        <a class="data-pjax" href='{url path="promotion/admin/init" args="{if $filter.merchant_keywords}&merchant_keywords={$filter.merchant_keywords}{/if}{if $filter.keywords}&keywords={$filter.keywords}{/if}"}'>
+        <a class="data-pjax" href='{url path="promotion/admin/init" args="{if $store_id}&store_id={$store_id}{/if}{if $filter.merchant_keywords}&merchant_keywords={$filter.merchant_keywords}{/if}{if $filter.keywords}&keywords={$filter.keywords}{/if}"}'>
             {t domain="promotion"}进行中{/t}<span class="badge badge-info">{if $type_count.on_sale}{$type_count.on_sale}{else}0{/if}</span>
         </a>
     </li>
     <li class="{if $type eq 'coming'}active{/if}">
-        <a class="data-pjax" href='{url path="promotion/admin/init" args="type=coming{if $filter.merchant_keywords}&merchant_keywords={$filter.merchant_keywords}{/if}{if $filter.keywords}&keywords={$filter.keywords}{/if}"}'>
+        <a class="data-pjax" href='{url path="promotion/admin/init" args="type=coming{if $store_id}&store_id={$store_id}{/if}{if $filter.merchant_keywords}&merchant_keywords={$filter.merchant_keywords}{/if}{if $filter.keywords}&keywords={$filter.keywords}{/if}"}'>
             {t domain="promotion"}即将开始{/t}<span class="badge badge-info">{if $type_count.coming}{$type_count.coming}{else}0{/if}</span>
         </a>
     </li>
     <li class="{if $type eq 'finished'}active{/if}">
-        <a class="data-pjax" href='{url path="promotion/admin/init" args="type=finished{if $filter.merchant_keywords}&merchant_keywords={$filter.merchant_keywords}{/if}{if $filter.keywords}&keywords={$filter.keywords}{/if}"}'>
+        <a class="data-pjax" href='{url path="promotion/admin/init" args="type=finished{if $store_id}&store_id={$store_id}{/if}{if $filter.merchant_keywords}&merchant_keywords={$filter.merchant_keywords}{/if}{if $filter.keywords}&keywords={$filter.keywords}{/if}"}'>
             {t domain="promotion"}已结束{/t}<span class="badge badge-info">{if $type_count.finished}{$type_count.finished}{else}0{/if}</span>
         </a>
     </li>
@@ -49,11 +49,11 @@
         <table class="table table-striped table-hide-edit">
             <thead>
                 <tr>
-                    <th class="w300">{t domain="promotion"}活动商品（SPU/SKU）{/t}</th>
-                    <th>{t domain="promotion"}活动范围{/t}</th>
-                    <th class="w70">{t domain="promotion"}限购总数{/t}</th>
-                    <th class="w70">{t domain="promotion"}每人限购{/t}</th>
-                    <th class="w70">{t domain="promotion"}活动价{/t}</th>
+                    <th class="w250">{t domain="promotion"}活动商品（SPU/SKU）{/t}</th>
+                    <th class="w80">{t domain="promotion"}活动范围{/t}</th>
+                    <th class="w80">{t domain="promotion"}限购总数{/t}</th>
+                    <th class="w80">{t domain="promotion"}每人限购{/t}</th>
+                    <th class="w80">{t domain="promotion"}活动价{/t}</th>
                     {if $type eq 'coming'}
                     <th class="w130">{t domain="promotion"}开始时间{/t}</th>
                     {else}
@@ -68,7 +68,7 @@
                 <td class="hide-edit-area">
                     <img class="ecjiaf-fl" src="{$item.goods_thumb}" width="60" style="height: 60px;padding-top: 20px;">
                     <div class="area-item">
-                        <div class="m_b5">{$item.merchants_name} {if $item.manage_mode eq 'self'}<span class="red-color">{t domain="promotion"}（自营）{/t}</span>{/if}
+                        <div class="ecjiaf-fwb m_b5">{$item.merchants_name} {if $item.manage_mode eq 'self'}<span class="red-color ecjiaf-fwn">{t domain="promotion"}（自营）{/t}</span>{/if}
                         </div>
                         <div>{if $item.products}<span class="spec-label">{t domain="promotion"}多规格{/t}</span>{/if}{$item.goods_name}
                         </div>

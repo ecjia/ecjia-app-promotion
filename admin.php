@@ -102,6 +102,9 @@ class admin extends ecjia_admin
         $this->assign('type', $type);
         $this->assign('form_search', RC_Uri::url('promotion/admin/init'));
 
+        $store_id = intval($_GET['store_id']);
+        $this->assign('store_id', $store_id);
+
         $this->display('promotion_list.dwt');
     }
 
@@ -183,9 +186,9 @@ class admin extends ecjia_admin
 
             $this->assign('edit_url', urlencode($edit_url));
 
-            $list_url = RC_Uri::url('promotion/merchant/init');
-            $list_url = str_replace($index, "sites/merchant/index.php", $list_url);
-            $this->assign('list_url', urlencode($list_url));
+//            $list_url = RC_Uri::url('promotion/merchant/init');
+//            $list_url = str_replace($index, "sites/merchant/index.php", $list_url);
+//            $this->assign('list_url', urlencode($list_url));
         }
 
         $this->display('promotion_detail.dwt');
@@ -310,6 +313,11 @@ class admin extends ecjia_admin
         }
 
         $time = RC_Time::gmtime();
+
+        $store_id = intval($_GET['store_id']);
+        if (!empty($store_id)) {
+            $db_goods->where(RC_DB::raw('g.store_id'), $store_id);
+        }
 
         $type_count = $db_goods->select(
             RC_DB::raw('SUM(IF(promote_start_date <' . $time . ' and promote_end_date > ' . $time . ', 1, 0)) as on_sale'),

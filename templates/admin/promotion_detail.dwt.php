@@ -82,7 +82,7 @@
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th class="w250">{t domain="promotion"}属性SKU{/t}</th>
+                                            <th class="w250">{t domain="promotion"}货品SKU{/t}</th>
                                             <th>{t domain="promotion"}编号{/t}</th>
                                             <th class="w100">{t domain="promotion"}限购总数量{/t}<span class="m_l5 red-color">*</span>
                                             </th>
@@ -106,7 +106,7 @@
                                         </td>
                                         <td>
                                             <div class="m_b5">{t domain="promotion"}货号：{/t}{$item.product_sn}</div>
-                                            <div>{t domain="promotion"}条形码：{/t}</div>
+<!--                                            <div>{t domain="promotion"}条形码：{/t}</div>-->
                                         </td>
                                         <td>
                                             <input disabled class="w30" type="text" name="promote_limited[]" value="{$item.promote_limited}">
@@ -115,7 +115,7 @@
                                             <input disabled class="w30" type="text" name="promote_user_limited[]" value="{$item.promote_user_limited}">
                                         </td>
                                         <td>
-                                            <input disabled class="w30" type="text" name="promote_price[]" value="{$item.promote_price}">
+                                            <input disabled class="w80" type="text" name="promote_price[]" value="{$item.promote_price}">
                                         </td>
                                         <input class="form-control" type="hidden" name="product_id[]" value="{$item.product_id}">
                                     </tr>
@@ -158,7 +158,7 @@
                                             <input disabled class="w30" type="text" name="promote_user_limited" value="{$goods.promote_user_limited}">
                                         </td>
                                         <td>
-                                            <input disabled class="w30" type="text" name="promote_price" value="{$goods.promote_price}">
+                                            <input disabled class="w80" type="text" name="promote_price" value="{$goods.promote_price}">
                                         </td>
                                     </tr>
                                 </table>
@@ -241,7 +241,7 @@
                                         </div>
                                         <div class="goods_sn m_t15">{t domain="promotion"}货号：{/t}{$val.goods_sn}</div>
                                         <div class="info">
-                                            <span class="market_price">{t domain="promotion"}促销价：{/t}{$val.formated_promote_price} <del class="ecjiaf-fr">{$val.formated_market_price}</del></span>
+                                            <span class="market_price">{t domain="promotion"}促销价：{/t} <span class="red-color">{$val.formated_promote_price}</span> <del class="ecjiaf-fr">{$val.formated_market_price}</del></span>
                                         </div>
                                     </div>
                                 </div>
@@ -249,7 +249,7 @@
                             </div>
                             {if $count gt 3 && $action}
                             <div class="view-more">
-                                <a target="_blank" href="{RC_Uri::url('promotion/admin/autologin')}&store_id={$goods.store_id}&url={$list_url}">查看更多>></a>
+                                <a target="_blank" href="{RC_Uri::url('promotion/admin/init')}&store_id={$goods.store_id}">查看更多>></a>
                             </div>
                             {/if}
                         </div>
