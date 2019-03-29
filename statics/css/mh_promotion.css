@@ -117,6 +117,9 @@
 
 .goods-content .right .name.p_t5 {
     padding-top: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .spec-label {
