@@ -120,6 +120,7 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    height: 22px;
 }
 
 .spec-label {
