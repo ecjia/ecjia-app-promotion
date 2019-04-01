@@ -106,7 +106,7 @@
                                         </td>
                                         <td>
                                             <div class="m_b5">{t domain="promotion"}货号：{/t}{$item.product_sn}</div>
-<!--                                            <div>{t domain="promotion"}条形码：{/t}</div>-->
+                                            <!--                                            <div>{t domain="promotion"}条形码：{/t}</div>-->
                                         </td>
                                         <td>
                                             <input disabled class="w30" type="text" name="promote_limited[]" value="{$item.promote_limited}">
@@ -149,7 +149,7 @@
                                         </td>
                                         <td>
                                             <div class="m_b5">{t domain="promotion"}货号：{/t}{$goods.goods_sn}</div>
-                                            <div>{t domain="promotion"}条形码：{/t}</div>
+                                            <!--                                            <div>{t domain="promotion"}条形码：{/t}</div>-->
                                         </td>
                                         <td>
                                             <input disabled class="w30" type="text" name="promote_limited" value="{$goods.promote_limited}">
@@ -230,14 +230,14 @@
                                 {foreach from=$result item=val}
                                 <div class="goods-info m_b10 border-bottom">
                                     <div class="left">
-                                        <img src="{$val.goods_thumb}" alt="">
+                                        <a target="_blank" href="{RC_Uri::url('promotion/admin/detail')}&id={$val.goods_id}"><img src="{$val.goods_thumb}" alt=""></a>
                                     </div>
                                     <div class="right">
                                         <div class="name p_t5">
                                             {if $val.products}
                                             <span class="spec-label">{t domain="promotion"}多规格{/t}</span>
                                             {/if}
-                                            {$val.goods_name}
+                                            <a target="_blank" href="{RC_Uri::url('promotion/admin/detail')}&id={$val.goods_id}">{$val.goods_name}</a>
                                         </div>
                                         <div class="goods_sn m_t15">{t domain="promotion"}货号：{/t}{$val.goods_sn}</div>
                                         <div class="info">

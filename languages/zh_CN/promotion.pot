@@ -381,7 +381,7 @@ msgstr ""
 #: content/apps/promotion/templates/admin/promotion_detail.dwt.php:85
 #: content/apps/promotion/templates/merchant/library/goods.lbi.php:33
 #: content/apps/promotion/templates/merchant/library/goods_info.lbi.php:21
-msgid "属性SKU"
+msgid "货品SKU"
 msgstr ""
 
 #: content/apps/promotion/templates/admin/promotion_detail.dwt.php:86

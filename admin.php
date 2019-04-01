@@ -138,7 +138,7 @@ class admin extends ecjia_admin
         $count  = RC_DB::table('goods')->where('store_id', $data['shop_info']['store_id'])->where('is_promote', 1)->count();
         if ($count != 0) {
             $result = RC_DB::table('goods')
-                ->select('goods_sn', 'goods_name', 'promote_price', 'market_price', 'goods_thumb', 'promote_start_date')
+                ->select('goods_id', 'goods_sn', 'goods_name', 'promote_price', 'market_price', 'goods_thumb', 'promote_start_date')
                 ->where('store_id', $data['shop_info']['store_id'])
                 ->where('is_promote', 1)
                 ->orderBy('promote_start_date', 'desc')

@@ -30,7 +30,7 @@
         <thead>
             <tr>
                 <th></th>
-                <th class="w250">{t domain="promotion"}属性SKU{/t}</th>
+                <th class="w250">{t domain="promotion"}货品SKU{/t}</th>
                 <th>{t domain="promotion"}编号{/t}</th>
                 <th class="w110">{t domain="promotion"}限购总数量{/t}<span class="m_l5 red-color">*</span>
                 </th>
@@ -69,7 +69,7 @@
         <!-- {/foreach} -->
     </table>
     <!-- {else} -->
-    <p class="m_t10"><a href="">{t domain="promotion"}预览>>{/t}</a></p>
+    <p class="m_t10"><a target="_blank" href='{url path="goods/merchant/preview" args="id={$goods.goods_id}"}'>{t domain="promotion"}预览>>{/t}</a></p>
     <table class="table table-striped">
         <thead>
             <tr>
