@@ -577,6 +577,9 @@ class merchant extends ecjia_merchant
                 $attr_value                 = is_array($attr_value) ? implode(' / ', $attr_value) : $attr_value;
                 $products[$k]['attr_value'] = $attr_value;
             }
+            $goods['range_label'] = __('货品促销', 'promotion');
+        } else {
+            $goods['range_label'] = __('商品促销', 'promotion');
         }
 
         return array(

@@ -30,9 +30,7 @@
 
                 <div class="control-group formSep">
                     <label class="control-label">{t domain="promotion"}活动范围：{/t}</label>
-                    <div class="controls l_h30">
-                        {if $products}{t domain="promotion"}货品促销{/t}{else}{t domain="promotion"}商品促销{/t}{/if}
-                    </div>
+                    <div class="controls l_h30">{$goods.range_label}</div>
                 </div>
 
                 <div class="control-group formSep">

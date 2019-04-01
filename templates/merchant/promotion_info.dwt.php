@@ -34,7 +34,7 @@
                     </div>
                     <div class="form-group">
                         <label class="control-label col-lg-2">{t domain="promotion"}活动范围：{/t}</label>
-                        <div class="col-lg-6 l_h30">{if $products}{t domain="promotion"}货品促销{/t}{else}{t domain="promotion"}商品促销{/t}{/if}</div>
+                        <div class="col-lg-6 l_h30">{$goods.range_label}</div>
                     </div>
                     {/if}
                     <div class="form-group">
