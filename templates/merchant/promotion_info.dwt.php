@@ -81,7 +81,7 @@
                             <!-- {if $id} -->
                             <input type="hidden" name="old_id" value="{$goods.goods_id}"/>
                             <input type="submit" value='{t domain="promotion"}更新{/t}' class="btn btn-info"/>
-                            <a data-toggle="ajaxremove" class="btn btn-info m_l5" data-msg='{t domain="promotion"}您确定要删除该促销活动吗？{/t}' href='{RC_Uri::url("promotion/merchant/remove", "id={$goods.goods_id}")}&from=edit' title='{t domain="promotion"}删除{/t}'>{t domain="promotion"}删除{/t}</a>
+                            <a data-toggle="ajaxremove" class="btn btn-danger m_l5" data-msg='{t domain="promotion"}您确定要删除该促销活动吗？{/t}' href='{RC_Uri::url("promotion/merchant/remove", "id={$goods.goods_id}")}&from=edit' title='{t domain="promotion"}删除{/t}'>{t domain="promotion"}删除{/t}</a>
                             <!-- {else} -->
                             <input type="submit" value='{t domain="promotion"}确定{/t}' class="btn btn-info"/>
                             <!-- {/if} -->
