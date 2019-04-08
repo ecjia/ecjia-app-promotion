@@ -462,6 +462,7 @@ class merchant extends ecjia_merchant
 
         $id = intval($_GET['id']);
         $db = RC_DB::table('goods');
+        $from = trim($_GET['from']);
 
         $goods_name = $db->where('store_id', $_SESSION['store_id'])->where('goods_id', $id)->pluck('goods_name');
 
@@ -488,7 +489,13 @@ class merchant extends ecjia_merchant
         }
 
         ecjia_merchant::admin_log($goods_name, 'remove', 'promotion');
-        return $this->showmessage(__('删除成功', 'promotion'), ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_SUCCESS);
+
+        if ($from == 'edit') {
+            return $this->showmessage(__('删除成功', 'promotion'), ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_SUCCESS, array('pjaxurl' => RC_Uri::url('promotion/merchant/init')));
+        } else {
+            return $this->showmessage(__('删除成功', 'promotion'), ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_SUCCESS);
+        }
+        
     }
 
     /**
