@@ -460,8 +460,8 @@ class merchant extends ecjia_merchant
     {
         $this->admin_priv('promotion_delete', ecjia::MSGTYPE_JSON);
 
-        $id = intval($_GET['id']);
-        $db = RC_DB::table('goods');
+        $id   = intval($_GET['id']);
+        $db   = RC_DB::table('goods');
         $from = trim($_GET['from']);
 
         $goods_name = $db->where('store_id', $_SESSION['store_id'])->where('goods_id', $id)->pluck('goods_name');
@@ -495,7 +495,7 @@ class merchant extends ecjia_merchant
         } else {
             return $this->showmessage(__('删除成功', 'promotion'), ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_SUCCESS);
         }
-        
+
     }
 
     /**
@@ -577,12 +577,21 @@ class merchant extends ecjia_merchant
         $goods['promote_end_date']   = RC_Time::local_date('Y-m-d H:i', $goods['promote_end_date']);
 
         $products = RC_DB::table('products')->where('goods_id', $goods_id)->get();
+
+        $attr_price = $goods['shop_price'];
         if (!empty($products)) {
             foreach ($products as $k => $v) {
-                $goods_attr                 = explode('|', $v['goods_attr']);
-                $attr_value                 = RC_DB::table('goods_attr')->where('goods_id', $goods_id)->whereIn('goods_attr_id', $goods_attr)->lists('attr_value');
-                $attr_value                 = is_array($attr_value) ? implode(' / ', $attr_value) : $attr_value;
-                $products[$k]['attr_value'] = $attr_value;
+                $goods_attr = explode('|', $v['goods_attr']);
+                $attr_list  = RC_DB::table('goods_attr')->where('goods_id', $goods_id)->whereIn('goods_attr_id', $goods_attr)->select('goods_attr_id', 'attr_value', 'attr_price')->get();
+
+                $attr_value = [];
+                foreach ($attr_list as $attr) {
+                    $attr_price   += $attr['attr_price'];
+                    $attr_value[] = $attr['attr_value'];
+                }
+
+                $products[$k]['attr_value'] = is_array($attr_value) ? implode(' / ', $attr_value) : $attr_value;;
+                $products[$k]['formated_attr_price'] = ecjia::config('sku_price_mode') == 'goods_sku' ? ecjia_price_format($attr_price, 2) : ecjia_price_format($goods['shop_price'], 2);
             }
             $goods['range_label'] = __('货品促销', 'promotion');
         } else {

@@ -30,7 +30,7 @@
 <!--                    <span class="m_l20 goods_number">{t domain="promotion"}条形码：{/t}</span>-->
                 </div>
                 <div class="info">
-                    <span class="price">{$goods.formated_shop_price}</span>
+                    <span class="price">{$val.formated_attr_price}</span>
                     <span class="goods_number">{t domain="promotion"}库存：{/t}{$val.product_number}</span>
                 </div>
             </div>
