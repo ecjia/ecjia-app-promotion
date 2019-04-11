@@ -73,7 +73,7 @@
 
 .goods-content .goods-info.m_b10 {
     margin-bottom: 10px;
-    height: 80px;
+    height: 90px;
 }
 
 .goods-content .goods-info.border-bottom {
@@ -99,6 +99,7 @@
 .goods-content .goods-info.m_b10 .left img {
     width: 80px;
     height: 80px;
+    margin-top: 5px;
 }
 
 .goods-content .right {
@@ -113,6 +114,10 @@
     font-size: 15px;
     font-weight: 600;
     margin-bottom: 5px;
+    width: 352px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .goods-content .right .name.p_t5 {
