@@ -5,14 +5,14 @@ msgstr ""
 "Project-Id-Version: Ecjia App promotion 1.28.0\n"
 "Report-Msgid-Bugs-To: https://make.ecjia.com/polyglots/\n"
 "POT-Creation-Date: 2019-04-04 09:55+0800\n"
-"PO-Revision-Date: 2019-04-04 09:59+0800\n"
+"PO-Revision-Date: 2019-04-11 09:21+0800\n"
 "Last-Translator: \n"
 "Language-Team: LANGUAGE <ecjia@ecjia.com>\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.7\n"
+"X-Generator: Poedit 2.2\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: admin.php:79 admin.php:90 apis/promotion_admin_menu_api.class.php:61
@@ -295,8 +295,8 @@ msgstr "（自營）"
 #: content/apps/promotion/templates/admin/promotion_detail.dwt.php:238
 #: content/apps/promotion/templates/merchant/promotion_list.dwt.php:76
 #: content/apps/promotion/templates/merchant/library/goods.lbi.php:15
-msgid "多规格"
-msgstr "多規格"
+msgid "多货品"
+msgstr "多貨品"
 
 #: content/apps/promotion/templates/admin/promotion_list.dwt.php:75
 #: content/apps/promotion/templates/admin/promotion_list.dwt.php:125

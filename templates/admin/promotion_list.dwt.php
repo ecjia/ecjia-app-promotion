@@ -70,7 +70,7 @@
                     <div class="area-item">
                         <div class="ecjiaf-fwb m_b5">{$item.merchants_name} {if $item.manage_mode eq 'self'}<span class="red-color ecjiaf-fwn">{t domain="promotion"}（自营）{/t}</span>{/if}
                         </div>
-                        <div>{if $item.products}<span class="spec-label">{t domain="promotion"}多规格{/t}</span>{/if}{$item.goods_name}
+                        <div>{if $item.products}<span class="spec-label">{t domain="promotion"}多货品{/t}</span>{/if}{$item.goods_name}
                         </div>
                         <div class="goods_sn">{t domain="promotion"}货号：{/t}{$item.goods_sn}</div>
                         <div class="edit-list">

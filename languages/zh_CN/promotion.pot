@@ -285,7 +285,7 @@ msgstr ""
 #: content/apps/promotion/templates/admin/promotion_detail.dwt.php:236
 #: content/apps/promotion/templates/merchant/promotion_list.dwt.php:76
 #: content/apps/promotion/templates/merchant/library/goods.lbi.php:15
-msgid "多规格"
+msgid "多货品"
 msgstr ""
 
 #: content/apps/promotion/templates/admin/promotion_list.dwt.php:75

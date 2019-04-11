@@ -73,7 +73,7 @@
                             <td class="hide-edit-area">
                                 <img class="ecjiaf-fl" src="{$item.goods_thumb}" width="60" height="60">
                                 <div class="area-item">
-                                    <div>{if $item.products}<span class="spec-label">{t domain="promotion"}多规格{/t}</span>{/if}{$item.goods_name}
+                                    <div>{if $item.products}<span class="spec-label">{t domain="promotion"}多货品{/t}</span>{/if}{$item.goods_name}
                                     </div>
                                     <div class="goods_sn">{t domain="promotion"}货号：{/t}{$item.goods_sn}</div>
                                     <div class="edit-list">

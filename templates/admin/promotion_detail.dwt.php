@@ -62,7 +62,7 @@
                                         </div>
                                         <div class="right">
                                             <div class="name">
-                                                <span class="spec-label">{t domain="promotion"}多规格{/t}</span> {$goods.goods_name}
+                                                <span class="spec-label">{t domain="promotion"}多货品{/t}</span> {$goods.goods_name}
                                             </div>
                                             <div class="goods_sn">{t domain="promotion"}货号：{/t}{$goods.goods_sn}</div>
                                             <div class="info">
@@ -233,7 +233,7 @@
                                     <div class="right">
                                         <div class="name p_t5">
                                             {if $val.products}
-                                            <span class="spec-label">{t domain="promotion"}多规格{/t}</span>
+                                            <span class="spec-label">{t domain="promotion"}多货品{/t}</span>
                                             {/if}
                                             <a target="_blank" href="{RC_Uri::url('promotion/admin/detail')}&id={$val.goods_id}">{$val.goods_name}</a>
                                         </div>
