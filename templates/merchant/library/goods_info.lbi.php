@@ -22,10 +22,10 @@
         {foreach from=$products item=val}
         <div class="goods-info m_b10">
             <div class="left">
-                <img src="{$goods.goods_thumb}" alt="">
+                <img src="{$val.product_thumb}" alt="">
             </div>
             <div class="right">
-                <div class="name">{$val.attr_value}</div>
+                <div class="name">{$val.product_name} {$val.attr_value}</div>
                 <div class="goods_sn">{t domain="promotion"}货号：{/t}{$val.product_sn}
 <!--                    <span class="m_l20 goods_number">{t domain="promotion"}条形码：{/t}</span>-->
                 </div>

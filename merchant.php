@@ -589,9 +589,11 @@ class merchant extends ecjia_merchant
                     $attr_price   += $attr['attr_price'];
                     $attr_value[] = $attr['attr_value'];
                 }
-
+                $products[$k]['product_thumb'] = empty($v['product_thumb']) ? $goods['goods_thumb'] : (file_exists(RC_Upload::upload_path($v['product_thumb'])) ? RC_Upload::upload_url($v['product_thumb']) : RC_Uri::admin_url('statics/images/nopic.png'));
+                $products[$k]['product_name'] = empty($v['product_name']) ? $goods['goods_name'] : $v['product_name'];
                 $products[$k]['attr_value'] = is_array($attr_value) ? implode(' / ', $attr_value) : $attr_value;;
-                $products[$k]['formated_attr_price'] = ecjia::config('sku_price_mode') == 'goods_sku' ? ecjia_price_format($attr_price, 2) : ecjia_price_format($goods['shop_price'], 2);
+                $products[$k]['formated_attr_price'] = ecjia::config('sku_price_mode') == 'goods_sku' ? ecjia_price_format($attr_price) :
+                    (!is_null($products[$k]['product_shop_price']) ? ecjia_price_format($products[$k]['product_shop_price']) : ecjia_price_format($goods['shop_price']));
             }
             $goods['range_label'] = __('货品促销', 'promotion');
         } else {
