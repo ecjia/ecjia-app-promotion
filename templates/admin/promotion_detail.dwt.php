@@ -121,7 +121,7 @@
                                     <!-- {/foreach} -->
                                 </table>
                                 <!-- {else} -->
-                                <p class="m_t10"><a href="">{t domain="promotion"}预览>>{/t}</a></p>
+                                <p class="m_t10"><a target="_blank" href='{url path="goods/admin/preview" args="id={$goods.goods_id}"}'>{t domain="promotion"}预览>>{/t}</a></p>
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
