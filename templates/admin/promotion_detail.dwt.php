@@ -228,7 +228,7 @@
                                 {foreach from=$result item=val}
                                 <div class="goods-info m_b10 border-bottom">
                                     <div class="left">
-                                        <a target="_blank" href="{RC_Uri::url('promotion/admin/detail')}&id={$val.goods_id}"><img src="{$val.goods_thumb}" alt=""></a>
+                                        <a href="{RC_Uri::url('promotion/admin/detail')}&id={$val.goods_id}"><img src="{$val.goods_thumb}" alt=""></a>
                                     </div>
                                     <div class="right">
                                         <div class="name p_t5">

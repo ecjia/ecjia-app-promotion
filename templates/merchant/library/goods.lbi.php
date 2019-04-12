@@ -59,7 +59,7 @@
             </td>
             <td>
                 <div class="m_b5">{t domain="promotion"}货号：{/t}{$item.product_sn}</div>
-                <div>{t domain="promotion"}条形码：{/t}{if $item.product_bar_code}{$item.product_bar_code}{else}暂无{/if}</div>
+                {if $item.product_bar_code}<div>{t domain="promotion"}条形码：{/t}{$item.product_bar_code}</div>{/if}
             </td>
             <td><input class="form-control" type="text" name="promote_limited[]" value="{$item.promote_limited}"></td>
             <td><input class="form-control" type="text" name="promote_user_limited[]" value="{$item.promote_user_limited}"></td>
@@ -95,7 +95,6 @@
             </td>
             <td>
                 <div class="m_b5">{t domain="promotion"}货号：{/t}{$goods.goods_sn}</div>
-<!--                <div>{t domain="promotion"}条形码：{/t}</div>-->
             </td>
             <td><input class="form-control" type="text" name="promote_limited" value="{$goods.promote_limited}"></td>
             <td><input class="form-control" type="text" name="promote_user_limited" value="{$goods.promote_user_limited}"></td>
