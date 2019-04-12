@@ -114,7 +114,12 @@
     font-size: 15px;
     font-weight: 600;
     margin-bottom: 5px;
-    width: 352px;
+}
+.modal-content .goods-content .right .name {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    width: 343px;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
