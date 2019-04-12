@@ -235,7 +235,7 @@
                                             {if $val.products}
                                             <span class="spec-label">{t domain="promotion"}多货品{/t}</span>
                                             {/if}
-                                            <a target="_blank" href="{RC_Uri::url('promotion/admin/detail')}&id={$val.goods_id}">{$val.goods_name}</a>
+                                            <a href="{RC_Uri::url('promotion/admin/detail')}&id={$val.goods_id}">{$val.goods_name}</a>
                                         </div>
                                         <div class="goods_sn m_t15">{t domain="promotion"}货号：{/t}{$val.goods_sn}</div>
                                         <div class="info">
