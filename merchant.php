@@ -641,7 +641,8 @@ class merchant extends ecjia_merchant
         }
 
         if ($type == 'finished') {
-            $db_goods->where('promote_end_date', '<=', $time);
+            $db_goods->where('promote_end_date', '<=', $time)
+                ->orderBy('promote_end_date', 'desc');
         }
 
         $count = $db_goods->count();
