@@ -50,7 +50,7 @@
             <td>
                 <img class="ecjiaf-fl" src="{$item.product_thumb}" width="60" height="60">
                 <div class="product-info">
-                    <div class="name">{$item.product_name} {$item.attr_value}</div>
+                    <div class="name">{$item.product_name}  【{$item.attr_value}】</div>
                     <div class="other-info">
                         <span class="price">{$item.formated_attr_price}</span>
                         <span class="number">{t domain="promotion"}库存：{/t}{$item.product_number}</span>
