@@ -113,7 +113,7 @@
 
                             <td>
                                 {if $item.products}
-                                <a data-toggle="show_products" data-id="{$item.goods_id}"><i class="fa fa-caret-down"></i><span>{t domain="promotion"}展开{/t}</span></a>
+                                <a data-toggle="show_products" data-id="{$item.goods_id}"><i class="fa fa-caret-down"></i> <span>{t domain="promotion"}展开{/t}</span></a>
                                 {/if}
                             </td>
                         </tr>
